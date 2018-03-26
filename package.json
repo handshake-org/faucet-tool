@@ -1,0 +1,24 @@
+{
+  "name": "browser-mnemonic",
+  "version": "1.0.0",
+  "description": "bcrypto mnemonic generator for the browser",
+  "main": "mnemonic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/handshakecompany/bmonic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/handshakecompany/bmonic/issues"
+  },
+  "homepage": "https://github.com/handshakecompany/bmonic#readme",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "bcrypto": "^0.2.0",
+    "bufio": "0.0.3"
+  }
+}
