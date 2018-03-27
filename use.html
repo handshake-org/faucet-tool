@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script type='text/javascript' src='./bmonic.bundle.js'></script>
+</head>
+<body>
+<h3>Create a New Key</h3>
+
+<form id='keyForm'>
+  <input id='keyPass' type='text' placeholder='passphrase'/>
+  <input type='submit' value = 'Generate Key'/>
+</form>
+<div id='phraseBox'></div>
+<div id='pubKeyBox'></div>
+<div id='privKeyBox'></div>
+
+<h3>Extract Raw from Phrase and Password</h3>
+
+<form id='checkForm'>
+  <input id='mPass' type='text' placeholder='passphrase'/>
+  <input id='mPhrase' type='text' placeholder='mnemonic phrase'/>
+  <input type='submit' value = 'Decrypt Key'/>
+</form>
+<div id='decodedKeyBox'></div>
+
+
+</body>
+
+
+<script type='text/javascript'>
+// IMPORTANT: Do not change
+// Changes here will cause associate decryption script to fail
+
+
+document.addEventListener("DOMContentLoaded", (e) => {
+
+  let keyForm = document.getElementById('keyForm')
+  let keyPass = document.getElementById('keyPass')
+  let pubKeyBox = document.getElementById('pubKeyBox')
+  let privKeyBox = document.getElementById('privKeyBox')
+  let phraseBox = document.getElementById('phraseBox')
+
+  keyForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let bmonic = new bMonic({lang: 'english'})
+    const key = bmonic.newEncKey(keyPass.value, 'english')
+
+    pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
+    privKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
+    phraseBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.phrase
+  })
+
+  let checkForm = document.getElementById('checkForm')
+  let mPass = document.getElementById('mPass')
+  let mPhrase = document.getElementById('mPhrase')
+  let decodedKeyBox = document.getElementById('decodedKeyBox')
+
+  checkForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let bmonic = new bMonic()
+    const passphrase = mPass.value
+    const mnemonic = mPhrase.value
+
+    const key = bmonic.decodeKey({phrase: mnemonic, pass: passphrase})
+    decodedKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
+  })
+})
+
+</script>
+
+
+</html>
+

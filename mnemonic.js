@@ -13,7 +13,7 @@ const cleanse = require('bcrypto/lib/cleanse');
 const random = require('bcrypto/lib/random');
 const pbkdf2 = require('bcrypto/lib/pbkdf2');
 const sha512 = require('bcrypto/lib/sha512');
-const wordlist = require('./wordlist');
+const wordlist = require('./wordlist-browser');
 const common = require('./common');
 const nfkd = require('./nfkd');
 

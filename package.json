@@ -1,17 +1,23 @@
 {
-  "name": "browser-mnemonic",
+  "name": "bmonic",
   "version": "1.0.0",
-  "description": "bcrypto mnemonic generator for the browser",
+  "description": "lightweight mnemonic generator for the browser. forked from hskd",
+  "keywords": [
+    "mnemonic"
+  ],
+  "license": "MIT",
+  "author": "Hans Schoenburg <hschoenburg@gmail.com>",
   "main": "mnemonic.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -f bmonic.js",
+    "lint": "eslint lib/ test/ || exit 0",
+    "test": "mocha --reporter spec test/*-test.js",
+    "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/handshakecompany/bmonic.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/handshakecompany/bmonic/issues"
   },
@@ -19,6 +25,17 @@
   "dependencies": {
     "assert": "^1.4.1",
     "bcrypto": "^0.2.0",
-    "bufio": "0.0.3"
+    "blru": "0.0.1",
+    "bstring": "0.0.2",
+    "bufio": "0.0.3",
+    "uglifyjs-webpack-plugin": "^1.2.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13"
   }
 }
