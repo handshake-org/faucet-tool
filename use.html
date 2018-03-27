@@ -11,6 +11,8 @@
 
 <form id='keyForm'>
   <input id='keyPass' type='text' placeholder='passphrase'/>
+
+  <div id='errorText'></div>
   <input type='submit' value = 'Generate Key'/>
 </form>
 <div id='phraseBox'></div>
@@ -42,15 +44,21 @@ document.addEventListener("DOMContentLoaded", (e) => {
   let pubKeyBox = document.getElementById('pubKeyBox')
   let privKeyBox = document.getElementById('privKeyBox')
   let phraseBox = document.getElementById('phraseBox')
+  let errorText = document.getElementById('errorText')
 
   keyForm.addEventListener('submit', (e) => {
     e.preventDefault()
     let bmonic = new bMonic({lang: 'english'})
-    const key = bmonic.newEncKey(keyPass.value, 'english')
+    try {
+      const key = bmonic.newEncKey(keyPass.value, 'english')
+    
+      pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
+      privKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
+      phraseBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.phrase
 
-    pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
-    privKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
-    phraseBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.phrase
+    } catch (err) {
+      errorText.innerHTML = err.message
+    }
   })
 
   let checkForm = document.getElementById('checkForm')
