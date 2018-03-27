@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
       const key = bmonic.newEncKey(keyPass.value, 'english')
     
       pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
-      privKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
-      phraseBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.phrase
+      privKeyBox.innerHTML = "PRIVATE  KEY " + key.privateKey.toString('hex')
+      phraseBox.innerHTML = "MNEMONIC PHRASE" + key.phrase
 
     } catch (err) {
       errorText.innerHTML = err.message
