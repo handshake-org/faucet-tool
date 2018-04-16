@@ -49,11 +49,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
     e.preventDefault()
     let bmonic = new bMonic({lang: 'english'})
     try {
-      const phrase  = bmonic.newKey()
+      const key = bmonic.newKey()
     
-      //pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
-      //privKeyBox.innerHTML = "PRIVATE  KEY " + key.privateKey.toString('hex')
-      phraseBox.innerHTML = phrase
+      pubKeyBox.innerHTML = "ADDRESS: " + key.address.toString('hex')
+      phraseBox.innerHTML = key.phrase
 
     } catch (err) {
       console.log(err)
