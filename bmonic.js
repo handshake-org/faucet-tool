@@ -2,27 +2,23 @@
 /* eslint prefer-arrow-callback: "off" */
 
 
+const ENTROPY = 256
+
 const Mnemonic = require('./mnemonic');
 const HDPrivateKey = require('./private');
 
-
 function bMonic (params) {
 
-  this.newEncKey = (passphrase) => {
-    if(passphrase.length < 15) { throw new Error('passphrase must be at least 15 chars') }
-    const pass = Buffer.from(passphrase)
-	  const mnemonic = new Mnemonic({language: params.lang})
+  this.newKey = () => {
+	  const mnemonic = new Mnemonic({language: params.lang, bits: ENTROPY})
     const phrase = mnemonic.getPhrase()
-    const key = HDPrivateKey.fromMnemonic(mnemonic, pass);
-    key.phrase = phrase
-    return key
+    return phrase
   }
 
-  this.decodeKey = (params) => {
-    const pass = Buffer.from(params.pass)
-    const mnemonic = new Mnemonic({phrase: params.phrase})
-    const key = HDPrivateKey.fromMnemonic(mnemonic, pass)
-    return key
+  this.importKey = (phrase) => {
+    const mnemonic = new Mnemonic({phrase: phrase})
+    const key = HDPrivateKey.fromMnemonic(mnemonic)
+    return key.privateKey.toString('hex')
   }
 }
 

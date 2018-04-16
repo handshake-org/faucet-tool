@@ -22,7 +22,6 @@
 <h3>Extract Raw from Phrase and Password</h3>
 
 <form id='checkForm'>
-  <input id='mPass' type='text' placeholder='passphrase'/>
   <input id='mPhrase' type='text' placeholder='mnemonic phrase'/>
   <input type='submit' value = 'Decrypt Key'/>
 </form>
@@ -50,30 +49,36 @@ document.addEventListener("DOMContentLoaded", (e) => {
     e.preventDefault()
     let bmonic = new bMonic({lang: 'english'})
     try {
-      const key = bmonic.newEncKey(keyPass.value, 'english')
+      const phrase  = bmonic.newKey()
     
-      pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
-      privKeyBox.innerHTML = "PRIVATE  KEY " + key.privateKey.toString('hex')
-      phraseBox.innerHTML = "MNEMONIC PHRASE" + key.phrase
+      //pubKeyBox.innerHTML = "PUBLIC KEY " + key.publicKey.toString('hex')
+      //privKeyBox.innerHTML = "PRIVATE  KEY " + key.privateKey.toString('hex')
+      phraseBox.innerHTML = phrase
 
     } catch (err) {
+      console.log(err)
       errorText.innerHTML = err.message
     }
   })
 
   let checkForm = document.getElementById('checkForm')
-  let mPass = document.getElementById('mPass')
   let mPhrase = document.getElementById('mPhrase')
   let decodedKeyBox = document.getElementById('decodedKeyBox')
 
   checkForm.addEventListener('submit', (e) => {
     e.preventDefault()
     let bmonic = new bMonic()
-    const passphrase = mPass.value
-    const mnemonic = mPhrase.value
+    const phrase = mPhrase.value
+    console.log(phrase)
 
-    const key = bmonic.decodeKey({phrase: mnemonic, pass: passphrase})
-    decodedKeyBox.innerHTML = "ENCRYPTED PRIVATE  KEY " + key.privateKey.toString('hex')
+    try {
+      const key = bmonic.importKey(phrase)
+      console.log(key.toString('hex'))
+      decodedKeyBox.innerHTML = "PRIVATE  KEY " + key
+    } catch (err) {
+      console.log(err)
+      errorText.innerHTML = err.message
+    }
   })
 })
 
