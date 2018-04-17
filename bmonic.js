@@ -24,7 +24,7 @@ function bMonic (params) {
     const addr = address.fromPubkey(Buffer.from(key.publicKey))
     return { 
       phrase: phrase,
-      address: addr.hash
+      address: addr.getHash('hex')
     }
   }
 }

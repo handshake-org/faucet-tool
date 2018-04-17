@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     try {
       const key = bmonic.newKey()
     
-      pubKeyBox.innerHTML = "ADDRESS: " + key.address.toString('hex')
+      pubKeyBox.innerHTML = "ADDRESS: " + key.address
       phraseBox.innerHTML = key.phrase
 
     } catch (err) {
