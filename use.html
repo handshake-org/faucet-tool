@@ -23,7 +23,7 @@
 
 <form id='checkForm'>
   <input id='mPhrase' type='text' placeholder='mnemonic phrase'/>
-  <input type='submit' value = 'Decrypt Key'/>
+  <input type='submit' value = 'Check Address'/>
 </form>
 <div id='decodedKeyBox'></div>
 
@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let bmonic = new bMonic({lang: 'english'})
     try {
       const key = bmonic.newKey()
+
+      window.keyz = key
     
       pubKeyBox.innerHTML = "ADDRESS: " + key.address
       phraseBox.innerHTML = key.phrase
@@ -71,9 +73,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     console.log(phrase)
 
     try {
-      const key = bmonic.importKey(phrase)
-      console.log(key.toString('hex'))
-      decodedKeyBox.innerHTML = "PRIVATE  KEY " + key
+      const check = bmonic.checkAddr(phrase)
+      decodedKeyBox.innerHTML = "CHECKED " +check
     } catch (err) {
       console.log(err)
       errorText.innerHTML = err.message

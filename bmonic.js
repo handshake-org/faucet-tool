@@ -12,6 +12,7 @@ const ENTROPY = 256
 const Mnemonic = require('./mnemonic');
 const HDPrivateKey = require('./private');
 const Address = require('./address')
+const {bech32} = require('bstring')
 
 function bMonic (params) {
 
@@ -20,12 +21,19 @@ function bMonic (params) {
     const key = HDPrivateKey.fromMnemonic(mnemonic)
     const phrase = mnemonic.getPhrase()
 
-    const address = new Address
-    const addr = address.fromPubkey(Buffer.from(key.publicKey))
+    const address = new Address()
+    const addr = address.fromPubkey(key.publicKey)
+    // probably not doing this right...
+   
     return { 
       phrase: phrase,
-      address: addr.getHash('hex')
+      address: addr.toString('hex') // trying to bech32.test this and failing
     }
+  }
+
+  this.testAddr(addr) {
+    // returns false
+    return bech32.test(addr)
   }
 }
 
