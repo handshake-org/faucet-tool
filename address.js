@@ -10,7 +10,7 @@ const assert = require('assert');
 const bio = require('bufio');
 const {bech32} = require('bstring');
 const blake2b = require('bcrypto/lib/blake2b');
-//const Network = require('../protocol/network');
+const Network = require('./network');
 //const consensus = require('../protocol/consensus');
 
 /*
@@ -193,8 +193,6 @@ class Address extends bio.Struct {
    * @throws Error on bad hash/prefix.
    */
 
-  /* 
-   * Commented out for minimal version
   toString(network) {
     const version = this.version;
     const hash = this.hash;
@@ -208,7 +206,6 @@ class Address extends bio.Struct {
 
     return bech32.encode(hrp, version, hash);
   }
-  */
 
   fromPubkey(key) {
     assert(Buffer.isBuffer(key) && key.length === 33);
@@ -248,8 +245,6 @@ class Address extends bio.Struct {
    * @throws Parse error
    */
 
-  /*
-   * Commented out for minimal browser version
   fromString(data, network) {
     assert(typeof data === 'string');
 
@@ -259,7 +254,7 @@ class Address extends bio.Struct {
 
     return this.fromHash(addr.hash, addr.version);
   }
-  */
+
   /**
    * Inject properties from witness.
    * @private

@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     console.log(phrase)
 
     try {
-      const check = bmonic.checkAddr(phrase)
+      const check = bmonic.testAddr(phrase)
       decodedKeyBox.innerHTML = "CHECKED " +check
     } catch (err) {
       console.log(err)

@@ -22,18 +22,16 @@ function bMonic (params) {
     const phrase = mnemonic.getPhrase()
 
     const address = new Address()
-    const addr = address.fromPubkey(key.publicKey)
-    // probably not doing this right...
+    const addr = address.fromPubkey(key.publicKey) // probably not doing this right...
    
     return { 
       phrase: phrase,
-      address: addr.toString('hex') // trying to bech32.test this and failing
+      address: addr.toString('main') // trying to bech32.test this and failing
     }
   }
 
-  this.testAddr(addr) {
-    // returns false
-    return bech32.test(addr)
+  this.testAddr = (addr) => {
+    return bech32.test(addr) // returns false
   }
 }
 
