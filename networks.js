@@ -108,7 +108,7 @@ main.genesis = genesis.main;
  * @const {String}
  */
 
-main.genesisBlock = genesis.mainData;
+//main.genesisBlock = genesis.mainData;
 
 /**
  * POW-related constants.

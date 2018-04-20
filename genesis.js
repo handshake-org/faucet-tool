@@ -2,7 +2,7 @@
 
 'use strict';
 
-const data = require('./genesis-data.json');
+//const data = require('./genesis-data.json');
 const genesis = exports;
 
 /*
@@ -69,7 +69,7 @@ genesis.main = {
   height: 0
 };
 
-genesis.mainData = Buffer.from(data.main, 'base64');
+//genesis.mainData = Buffer.from(data.main, 'base64');
 
 /*
  * Testnet
@@ -135,7 +135,7 @@ genesis.testnet = {
   height: 0
 };
 
-genesis.testnetData = Buffer.from(data.testnet, 'base64');
+//genesis.testnetData = Buffer.from(data.testnet, 'base64');
 
 /*
  * Regtest
@@ -163,7 +163,7 @@ genesis.regtest = {
   height: 0
 };
 
-genesis.regtestData = Buffer.from(data.regtest, 'base64');
+//genesis.regtestData = Buffer.from(data.regtest, 'base64');
 
 /*
  * Simnet
@@ -205,4 +205,4 @@ genesis.simnet = {
   height: 0
 };
 
-genesis.simnetData = Buffer.from(data.simnet, 'base64');
+//genesis.simnetData = Buffer.from(data.simnet, 'base64');
