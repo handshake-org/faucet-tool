@@ -1,8 +1,8 @@
 /*
  * Bmonic
  *
- * Repurposed lib for generating mnemonic keys 
- * and addresses in the browser. Uses
+ * lib for generating mnemonic keys 
+ * and addresses for Handshake with minimal deps. Uses
  * primitives/address.js and hd/private.js from hskd
  * but with Consensus and Network dependencies removed
  */
@@ -22,11 +22,11 @@ function bMonic (params) {
     const phrase = mnemonic.getPhrase()
 
     const address = new Address()
-    const addr = address.fromPubkey(key.publicKey) // probably not doing this right...
+    const addr = address.fromPubkey(key.publicKey)
    
     return { 
       phrase: phrase,
-      address: addr.toString('main') // trying to bech32.test this and failing
+      address: addr.toString('main') 
     }
   }
 
@@ -35,6 +35,7 @@ function bMonic (params) {
   }
 }
 
-window.bMonic = bMonic
+//window.bMonic = bMonic
+module.exports = bMonic
 
 
