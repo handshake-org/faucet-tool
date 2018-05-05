@@ -1,6 +1,19 @@
+### cli.js
+Simple CLI tool for generating mnemonic keys
+To generate a key run 
+
+```
+$ git clone git@github.com:handshakecompany/airdropKeys.git
+$ cd airdropKeys
+$ ./cli.js
+```
+
+
+### bmonic.js
+
 small js lib for generating mnemonic keys in the browser
 
-see use.html for usage example
+see use.html for web usage example
 
 Forked from https://github.com/handshakecompany/hskd
 

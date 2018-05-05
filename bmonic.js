@@ -9,9 +9,9 @@
 
 const ENTROPY = 256
 
-const Mnemonic = require('./mnemonic');
-const HDPrivateKey = require('./private');
-const Address = require('./address')
+const Mnemonic = require('./lib/mnemonic');
+const HDPrivateKey = require('./lib/private');
+const Address = require('./lib/address')
 const {bech32} = require('bstring')
 
 function bMonic (params) {

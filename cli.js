@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-/**
- * hnskeycli
- * Simple CLI tool to generate and encrypt priv/pub keys
- */
 
 'use strict';
 
