@@ -1,7 +1,7 @@
 /*
  * Bmonic
  *
- * lib for generating mnemonic keys 
+ * lib for generating mnemonic seeds, private keys
  * and addresses for Handshake with minimal deps. Uses
  * primitives/address.js and hd/private.js from hskd
  * but with Consensus and Network dependencies removed
@@ -17,16 +17,16 @@ const {bech32} = require('bstring')
 function bMonic (params) {
 
   this.newKey = () => {
-	  const mnemonic = new Mnemonic({language: params.lang, bits: ENTROPY})
+    const mnemonic = new Mnemonic({language: params.lang, bits: ENTROPY})
     const key = HDPrivateKey.fromMnemonic(mnemonic)
     const phrase = mnemonic.getPhrase()
 
     const address = new Address()
     const addr = address.fromPubkey(key.publicKey)
-   
-    return { 
+
+    return {
       phrase: phrase,
-      address: addr.toString('main') 
+      address: addr.toString('main')
     }
   }
 
@@ -35,7 +35,6 @@ function bMonic (params) {
   }
 }
 
-//window.bMonic = bMonic
 module.exports = bMonic
 
 
