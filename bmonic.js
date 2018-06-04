@@ -8,9 +8,10 @@
  */
 
 const ENTROPY = 256
+const HNS_COIN_TYPE = 5353
 
-const Mnemonic = require('./lib/mnemonic');
-const HDPrivateKey = require('./lib/private');
+const Mnemonic = require('./lib/mnemonic')
+const HDPrivateKey = require('./lib/private')
 const Address = require('./lib/address')
 const {bech32} = require('bstring')
 
@@ -18,14 +19,15 @@ function bMonic (params) {
 
   this.newKey = () => {
     const mnemonic = new Mnemonic({language: params.lang, bits: ENTROPY})
-    const key = HDPrivateKey.fromMnemonic(mnemonic)
-    const phrase = mnemonic.getPhrase()
+    const master = HDPrivateKey.fromMnemonic(mnemonic)
 
-    const address = new Address()
-    const addr = address.fromPubkey(key.publicKey)
+    // Derive a receive address from m/44'/5353'/0'/0/0.
+    // This is the first receiving address of the default (first) account.
+    const child = master.deriveAccount(44, HNS_COIN_TYPE, 0).derive(0).derive(0)
+    const addr = Address.fromPubkey(child.publicKey)
 
     return {
-      phrase: phrase,
+      phrase: mnemonic.getPhrase(),
       address: addr.toString('main')
     }
   }
