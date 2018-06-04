@@ -1,7 +1,7 @@
 /*
  * Bmonic
  *
- * lib for generating mnemonic seeds, private keys
+ * lib for generating mnemonic seeds
  * and addresses for Handshake with minimal deps. Uses
  * primitives/address.js and hd/private.js from hskd
  * but with Consensus and Network dependencies removed
@@ -21,7 +21,7 @@ function bMonic (params) {
     const mnemonic = new Mnemonic({language: params.lang, bits: ENTROPY})
     const master = HDPrivateKey.fromMnemonic(mnemonic)
 
-    // Derive a receive address from m/44'/5353'/0'/0/0.
+    // Create a receive address from M/44'/5353'/0'/0/0.
     // This is the first receiving address of the default (first) account.
     const child = master.deriveAccount(44, HNS_COIN_TYPE, 0).derive(0).derive(0)
     const addr = Address.fromPubkey(child.publicKey)
