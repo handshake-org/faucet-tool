@@ -1,19 +1,14 @@
-### cli.js
-Simple CLI tool for generating mnemonic keys
-To generate a key run 
+### Command line seed phrase generator for the Handshake Developer Faucet.
 
 ```
-$ git clone git@github.com:handshakecompany/airdropKeys.git
-$ cd airdropKeys
+$ git clone git@github.com:handshakecompany/handshakeFaucet.git
+$ cd handshakeFaucet
 $ ./cli.js
+
+PASTE ADDRESS INTO https://handshake.org
 ```
 
-
-### bmonic.js
-
-small js lib for generating mnemonic keys in the browser
-
-see use.html for web usage example
+This tool uses bmonic.js for generating mnemonic keys
 
 Forked from https://github.com/handshakecompany/hskd
 

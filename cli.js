@@ -13,8 +13,8 @@ console.log('Usage: ./cli');
 console.log('PSA: Do not run on potentially compromised hardware.');
 console.log('The truely parandoid can run on an air-gapped machine.');
 console.log("\n");
-console.log('First output will be a new secret key phrase which you must backup and keep secret.') 
-console.log('Second output will be your address, which can be shared.');
+console.log('First output will be your seed phrase which you must backup and keep secret.') 
+console.log('Second output will be your address, which you should provide to Handshake.org to receive your coins.');
 console.log('You MUST write down your key. This tool does not create any backup')
 console.log("\n");
 
@@ -52,7 +52,7 @@ rl.question(prompt, (prompt) => {
   console.log('Seed phrase (WRITE DOWN AND KEEP SECRET)');
   console.log(phrase.toString());
   console.log("\n");
-  console.log('Address (SHARE THIS):');
+  console.log('Address (PASTE INTO HANDSHAKE.ORG):');
   console.log(key.address)
   console.log("\n");
   console.log('You MUST write down your key. This tool did not create any backup')

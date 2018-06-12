@@ -37,6 +37,8 @@ function bMonic (params) {
   }
 }
 
+
 module.exports = bMonic
+//window.bMonic = bMonic
 
 
