@@ -1,6 +1,6 @@
-# HNS Address Generator
+# HNS faucet tool
 This tool generates the first receiving address, in the first account of a
-BIP44 HD wallet. It also generates the 24word BIP39 mnemonic phrase which was
+BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic phrase which was
 used to seed the wallet. **It is important that you keep this seed phrase
 private. It is the only way to access your HNS coins. Do not share your
 mnemonic seed phrase with anyone that should not have access to the contents
@@ -8,8 +8,8 @@ of the wallet.**
 
 ## Browser tool
 ```
-$ git clone git@github.com:handshake-org/handshakeFaucet.git
-$ cd handshakeFaucet
+$ git clone git@github.com:handshake-org/faucet-tool.git
+$ cd faucet-tool
 $ open browser/index.html
 
 FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
@@ -17,8 +17,8 @@ FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
 
 ## CLI tool
 ```
-$ git clone git@github.com:handshake-org/handshakeFaucet.git
-$ cd handshakeFaucet
+$ git clone git@github.com:handshake-org/faucet-tool.git
+$ cd faucet-tool
 $ ./bin/cli
 
 FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION

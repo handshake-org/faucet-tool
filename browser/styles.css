@@ -78,9 +78,7 @@ h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 12px; }
 
 h1 {
-  margin-bottom: 50px; }
-h1.low-margin {
-  margin-bottom: 30px; }
+  margin-bottom: 15px; }
 
 section {
   padding: 70px 0; }
