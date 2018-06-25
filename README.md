@@ -1,4 +1,4 @@
-# HNS faucet tool
+# HNS Faucet Tool
 This tool generates the first receiving address, in the first account of a
 BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic phrase which was
 used to seed the wallet. **It is important that you keep this seed phrase
