@@ -3,12 +3,12 @@
 ```
 $ git clone git@github.com:handshake-org/handshakeFaucet.git
 $ cd handshakeFaucet
-$ ./cli.js
+$ ./bin/cli
 
-PASTE ADDRESS INTO https://handshake.org
+SEND ADDRESS TO HANDSHAKE FOUNDATION
 ```
 
-This tool uses bmonic.js for generating mnemonic keys
+This tool uses bmonic.js for generating mnemonic seed phrases
 
 Forked from https://github.com/handshake-org/hskd
 
