@@ -1,7 +1,7 @@
-### Command line seed phrase generator for the Handshake Developer Faucet.
+### CLI seed phrase generator for the Handshake HD wallets.
 
 ```
-$ git clone git@github.com:handshakecompany/handshakeFaucet.git
+$ git clone git@github.com:handshake-org/handshakeFaucet.git
 $ cd handshakeFaucet
 $ ./cli.js
 
@@ -10,7 +10,7 @@ PASTE ADDRESS INTO https://handshake.org
 
 This tool uses bmonic.js for generating mnemonic keys
 
-Forked from https://github.com/handshakecompany/hskd
+Forked from https://github.com/handshake-org/hskd
 
 HD mnemonics and keys (BIP32, BIP39).
 
