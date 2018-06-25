@@ -1,18 +1,35 @@
-### CLI seed phrase generator for the Handshake HD wallets.
+# HNS Address Generator
+This tool generates the first receiving address, in the first account of a
+BIP44 HD wallet and the 24-word BIP39 mnemonic phrase which was used to seed the wallet.
+**It is important that you keep this seed phrase private. It is the only way
+to access your HNS coins. Do not share your mnemonic seed phrase with anyone that
+should not have access to the contents of the wallet.**
 
+## Browser tool
+```
+$ git clone git@github.com:handshake-org/handshakeFaucet.git
+$ cd handshakeFaucet
+$ open browser/index.html
+
+FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
+```
+
+## CLI tool
 ```
 $ git clone git@github.com:handshake-org/handshakeFaucet.git
 $ cd handshakeFaucet
 $ ./bin/cli
 
-SEND ADDRESS TO HANDSHAKE FOUNDATION
+FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
 ```
 
-This tool uses bmonic.js for generating mnemonic seed phrases
+## Notes
+
+This tool uses bmonic.js for generating mnemonic seed phrases.
 
 Forked from https://github.com/handshake-org/hskd
 
-HD mnemonics and keys (BIP32, BIP39).
+HD keys and mnemonics (BIP32, BIP39).
 
 Parts of this software were originally based on bitcore-lib:
 
