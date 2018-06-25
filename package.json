@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/handshake-org/handshakeFaucet.git"
+    "url": "git+ssh://git@github.com/handshake-org/faucet-tool.git"
   },
   "bugs": {
-    "url": "https://github.com/handshake-org/handshakeFaucet/issues"
+    "url": "https://github.com/handshake-org/faucet-tool/issues"
   },
-  "homepage": "https://github.com/handshake-org/handshakeFaucet",
+  "homepage": "https://github.com/handshake-org/faucet-tool",
   "dependencies": {
     "assert": "^1.4.1",
     "bcrypto": "^0.2.0",
