@@ -3,7 +3,7 @@
 'use strict';
 
 const readline = require('readline');
-const bMonic = require('./bmonic')
+const bMonic = require('../bmonic')
 const filename = 'HandShakeSeed.enc'
 const bmonic = new bMonic({lang: 'english'})
 

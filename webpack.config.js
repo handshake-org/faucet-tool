@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
   output: {
     library: 'bmonic',
     libraryTarget: 'umd',
-    path: __dirname,
+    path: path.resolve(__dirname, 'browser'),
     filename: '[name].bundle.js'
   },
   resolve: {
