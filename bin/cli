@@ -7,14 +7,12 @@ const bMonic = require('../bmonic')
 const filename = 'HandShakeSeed.enc'
 const bmonic = new bMonic({lang: 'english'})
 
-
-
 console.log('Usage: ./cli');
 console.log('PSA: Do not run on potentially compromised hardware.');
 console.log('The truely parandoid can run on an air-gapped machine.');
 console.log("\n");
 console.log('First output will be your seed phrase which you must backup and keep secret.') 
-console.log('Second output will be your address, which you should provide to Handshake.org to receive your coins.');
+console.log('Second output will be your address, which you should send to the Handshake Foundation to receive your coins.');
 console.log('You MUST write down your key. This tool does not create any backup')
 console.log("\n");
 
@@ -23,7 +21,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const prompt = 'Press return to generate a new Mnemonic seed phrase:\n';
+const prompt = 'Press return to generate a new mnemonic seed phrase and address:\n';
 
 // Handles hidden password input
 const stdin = process.openStdin();
@@ -52,7 +50,7 @@ rl.question(prompt, (prompt) => {
   console.log('Seed phrase (WRITE DOWN AND KEEP SECRET)');
   console.log(phrase.toString());
   console.log("\n");
-  console.log('Address (PASTE INTO HANDSHAKE.ORG):');
+  console.log('Address (SEND TO THE HANDSHAKE FOUNDATION):');
   console.log(key.address)
   console.log("\n");
   console.log('You MUST write down your key. This tool did not create any backup')
