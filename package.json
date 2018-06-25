@@ -7,21 +7,18 @@
   ],
   "license": "MIT",
   "author": "Hans Schoenburg <hschoenburg@gmail.com>",
-  "main": "mnemonic.js",
+  "main": "lib/bmonic.js",
   "scripts": {
-    "clean": "rm -f bmonic.js",
-    "lint": "eslint lib/ test/ || exit 0",
-    "test": "mocha --reporter spec test/*-test.js",
     "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/handshakecompany/bmonic.git"
+    "url": "git+ssh://git@github.com/handshake-org/handshakeFaucet.git"
   },
   "bugs": {
-    "url": "https://github.com/handshakecompany/bmonic/issues"
+    "url": "https://github.com/handshake-org/handshakeFaucet/issues"
   },
-  "homepage": "https://github.com/handshakecompany/bmonic#readme",
+  "homepage": "https://github.com/handshake-org/handshakeFaucet",
   "dependencies": {
     "assert": "^1.4.1",
     "bcrypto": "^0.2.0",
