@@ -1,9 +1,10 @@
 # HNS Address Generator
 This tool generates the first receiving address, in the first account of a
-BIP44 HD wallet and the 24-word BIP39 mnemonic phrase which was used to seed the wallet.
-**It is important that you keep this seed phrase private. It is the only way
-to access your HNS coins. Do not share your mnemonic seed phrase with anyone that
-should not have access to the contents of the wallet.**
+BIP44 HD wallet. It also generates the 24word BIP39 mnemonic phrase which was
+used to seed the wallet. **It is important that you keep this seed phrase
+private. It is the only way to access your HNS coins. Do not share your
+mnemonic seed phrase with anyone that should not have access to the contents
+of the wallet.**
 
 ## Browser tool
 ```
