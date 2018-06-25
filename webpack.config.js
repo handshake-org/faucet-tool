@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   target: 'web',
   entry: {
-    'bmonic': ['babel-polyfill', './bmonic']
+    'bmonic': ['babel-polyfill', './lib/bmonic']
   },
   output: {
     library: 'bmonic',
@@ -27,13 +27,8 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin()
   ],
-  watch: true,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000
-  },
+  watch: false,
   node: {
     Buffer: true
   }
-
 }
