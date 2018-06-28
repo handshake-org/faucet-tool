@@ -6,10 +6,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   target: 'web',
   entry: {
-    'bmonic': ['babel-polyfill', './lib/bmonic']
+    'faucetTool': ['babel-polyfill', './lib/faucet-tool']
   },
   output: {
-    library: 'bmonic',
+    library: 'faucetTool',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'browser'),
     filename: '[name].bundle.js'

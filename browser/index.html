@@ -3,7 +3,7 @@
 <html lang='en'>
 <head>
 
-<title>HNS Faucet Tool</title>
+<title>HNS Address Generator</title>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -11,7 +11,7 @@
 
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="styles.css" />
-<script src="bmonic.bundle.js"></script>
+<script src="faucetTool.bundle.js"></script>
 
 </head>
 
@@ -20,40 +20,48 @@
 <header>
 <nav class="nav-bar">
 
-<a style="pointer-events: none" href="#" class="nav-logo">
+<a href="" class="nav-logo">
 <img alt class="logo logo-dark" src="logo.svg" />
 </a>
 
 </nav>
 </header>
 
-<section class="default">
+<section id="top" class="default">
 <div class="center-wrap">
 
 <div class="hero no-split">
 <div>
-<h1 class="center">HNS Faucet Tool</h1>
-<p>This tool generates the first receiving address, in the first account of a
-BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic phrase which
-was used to seed the wallet.&nbsp;<strong>It is important that you keep this
-seed phrase private. It is the only way to access your HNS coins. Do not share
+<h1 class="center">HNS Address Generator</h1>
+<p class="generate">This tool generates the first receiving address, in the
+first account of a BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic
+phrase which was used to seed the wallet.&nbsp;<strong>It is important that you keep
+this seed phrase private. It is the only way to access your wallet. Do not share
 your seed phrase with anyone that should not have access to the contents of
 the wallet.</strong></p>
 
-<p class="button-wrap"><a id="generate" class="button">Generate</a></p>
+<p>This tool also generates the specific keypair used to derive the receiving address.
+The keypair could instead be included in a multisig address. This repo includes a cli
+tool which offers multisig support as all as support for testnet, regtest, and simnet
+address generation.</p>
+
+<p class="button-wrap show">
+  <a href="" id="generate" class="button">Generate address</a>
+</p>
+<div id="error-box" class="error hide"></div>
 </div>
 </div>
 
 </div>
 </section>
 
-<section>
+<section class="generate hide">
 <div class="center-wrap">
 <div class="hero no-split">
 
 <div>
 <h2>Your Seed Phrase</h2>
-<p class='onboarding-text-blob-max-width'>This is your seed phrase. To access
+<p class="onboarding-text-blob-max-width">This is your seed phrase. To access
 your wallet in the future, please save your seed phrase and back it up 
 externally. <strong>Write it down. Back it up. There is no way to recover
 your wallet if you do not do this.</strong></p>
@@ -62,10 +70,47 @@ your wallet if you do not do this.</strong></p>
 
 <div>
 <h2>Your Address</h2>
-<p>This is your HNS address. We will use this address to send your HNS coins
-after the mainnet launch. Please send this address to the Handshake Foundation.</p>
-<textarea id="address" rows="1" readonly></textarea>
+<p>This is your HNS address. We will use this address to send you your HNS coins
+after the mainnet launch. If you are a faucet participant, please paste this into
+the submit address field in the handshake.org faucet sign-up flow.</p>
+<textarea id="plaintext" rows="1" readonly></textarea>
 </div>
+
+<div>
+<h2>Your Encryped Address</h2>
+<p>This is your HNS address encrypted with a PGP pubkey.
+If you are an official project sponsor please email this address to the Handshake Foundation.</p>
+<textarea id="ciphertext" rows="22" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Private Key</h2>
+<p>This is the private key used to derive your HNS address.
+<textarea id="privkey" rows="1" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Public Key</h2>
+<p>This is the public key which was hashed to produce your HNS address.</p>
+<textarea id="pubkey" rows="1" readonly></textarea>
+</div>
+
+<div>
+<p class="button-wrap generate hide"><a href="" class="button">Restart</a></p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="hide">
+<div class="center-wrap">
+<div class="hero no-split">
+
+<div>
+<div><input type='text' /></div>
+</div>
+
 </div>
 </div>
 </section>
@@ -80,24 +125,45 @@ after the mainnet launch. Please send this address to the Handshake Foundation.<
 
 document.addEventListener("DOMContentLoaded", (e) => {
 
-  let generate = document.getElementById('generate')
-  let phrase = document.getElementById('phrase')
-  let address = document.getElementById('address')
+  const generate = document.getElementById('generate');
+  const phrase = document.getElementById('phrase');
+  const plaintext = document.getElementById('plaintext');
+  const ciphertext = document.getElementById('ciphertext');
+  const privkey = document.getElementById('privkey');
+  const pubkey = document.getElementById('pubkey');
+  const errorBox = document.getElementById('error-box');
+  const hidden = document.getElementsByClassName('generate hide');
+  const shown = document.getElementsByClassName('show');
+  const top = document.getElementById('top');
+  const FaucetTool = faucetTool.FaucetTool;
+  const tool = new FaucetTool();
 
-  generate.addEventListener('click', (e) => {
-    e.preventDefault()
-    let m = new bmonic({lang: 'english'})
-    try {
-      const key = m.newKey()
-      phrase.innerHTML = key.phrase
-      address.innerHTML = key.address
+  generate.addEventListener('click', function(e) {
+    e.preventDefault();
+    FaucetTool.encryptData(tool.getAddress())
+      .then(function(res) {
+        ciphertext.innerHTML = res;
+        phrase.innerHTML = tool.getPhrase();
+        plaintext.innerHTML = tool.getAddress();
+        privkey.innerHTML = tool.getPrivkey();
+        pubkey.innerHTML = tool.getPubkey();
 
-    } catch (err) {
-      console.log(err)
-      errorText.innerHTML = err.message
-    }
-  })
-})
+        // CSS Hack for proper footer placement
+        top.style.minHeight = 'auto';
+
+        while (hidden.length > 0) {
+          hidden[0].classList.remove('hide');
+        }
+        for (let i = 0; i < shown.length; i++) {
+          shown[i].classList.add('hide');
+        }
+      })
+      .catch(function(err) {
+        errorBox.classList.remove('hide');
+        errorBox.innerHTML = err;
+      });
+  });
+});
 
 </script>
 </body>
