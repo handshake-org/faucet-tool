@@ -6,6 +6,12 @@ private. It is the only way to access your HNS coins. Do not share your
 mnemonic seed phrase with anyone that should not have access to the contents
 of the wallet.**
 
+## Requirements
+
+* Linux or OSX (not tested on Windows)
+* git
+* nodejs >= 8.0.0
+
 ## Browser tool
 ```
 $ git clone git@github.com:handshake-org/faucet-tool.git
