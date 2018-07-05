@@ -417,18 +417,17 @@ section#top {
   min-height: 450px;
 }
 
+@media(min-height: 768px) {
+  section#top {
+    min-height: 629px;
+  }
+}
+
 @media(min-height: 1080px) {
   section#top {
     min-height: 775px;
   }
 }
-
-@media(min-height: 768px) {
-  section#top {
-    min-height: 459px;
-  }
-}
-
 #error-box {
   background-color: #f2dede;
   border: 1px solid #ebccd1;
