@@ -1,15 +1,16 @@
 {
-  "name": "bmonic",
+  "name": "faucet-tool",
   "version": "1.0.0",
-  "description": "lightweight mnemonic generator for the browser. forked from hskd",
+  "description": "lightweight tool for hns address generation. forked from hskd",
   "keywords": [
     "mnemonic"
   ],
   "license": "MIT",
-  "author": "Hans Schoenburg <hschoenburg@gmail.com>",
-  "main": "lib/bmonic.js",
+  "author": "Boyma Fahnbulleh <boyma@handshake.org>",
+  "main": "./index.js",
   "scripts": {
-    "webpack": "webpack --config webpack.config.js"
+    "test": "mocha --reporter spec test/*.js",
+    "webpack": "webpack --mode production --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -25,13 +26,16 @@
     "blru": "0.0.1",
     "bstring": "0.0.2",
     "bufio": "0.0.3",
-    "uglifyjs-webpack-plugin": "^1.2.4"
+    "openpgp": "^3.0.11"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "mocha": "^5.2.0",
+    "pkg": "^4.3.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.2.0",
     "webpack-cli": "^2.0.13"
   }

@@ -1,0 +1,136 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const argv = require('minimist')(process.argv.slice(2));
+const { FaucetTool } = require('..');
+
+const VALID_CMDS = ['createaddress', 'createmultisig'];
+const VALID_OPTS  = ['n', 'l', 'b'];
+
+(async function() {
+  try {
+    const { cmd, args, opts } = parseCmd(argv);
+    const tool = new FaucetTool({
+      network: opts.n,
+      language: opts.l,
+      bits: opts.b
+    });
+
+    switch (cmd) {
+      case VALID_CMDS[0]:
+        await createAddress(tool, args);
+        break;
+
+      case VALID_CMDS[1]:
+        await createMultisig(tool, args);
+        break;
+    }
+
+    process.exit(0);
+  } catch (err) {
+    usage(err.message);
+    process.exit(1);
+  }
+}());
+
+async function createAddress(tool, args) {
+  if (args.length !== 0)
+    usage(`createaddress expects 0 args`);
+
+  const ciphertext = await FaucetTool.encryptData(tool.getAddress());
+  const out =
+`Seed phrase:
+${tool.getPhrase()}
+
+Address:
+${tool.getAddress()}
+
+Encrypted address:
+${ciphertext}
+
+Private key:
+${tool.getPrivkey()}
+
+Public key:
+${tool.getPubkey()}
+
+exiting...`;
+
+  console.log(out);
+}
+
+async function createMultisig(tool, [nrequired, ...keys]) {
+  if ((nrequired >>> 0) !== nrequired)
+    usage('nrequired should be an Int');
+
+  if (nrequired > keys.length)
+    usage('nrequired should not be larger than the number of keys');
+
+  if (nrequired + keys.length < 3)
+    usage(`createmultisig expects at least 3 args`);
+
+  keys.forEach(key => {
+    if (!/[0-9A-Fa-f]{66}/g.test(key))
+      usage(`invalid pubkey: ${key}`);
+  });
+
+  const multisig = await FaucetTool.createMultisig(tool.getNetwork(), nrequired, keys);
+  const ciphertext = await FaucetTool.encryptData(multisig.address);
+  const out =
+`Multisig address:
+${multisig.address}
+
+Encrypted multisig address:
+${ciphertext}
+
+Redeem script:
+${multisig.redeemScript}
+
+exiting...`;
+
+  console.log(out);
+}
+
+function parseCmd(argv) {
+  let cmd = argv._[0],
+      args = argv._.slice(1),
+      nopts = 0,
+      opts = argv;
+
+  if (!VALID_CMDS.includes(cmd))
+    usage(`invalid command: ${cmd}`);
+
+  for (let opt in opts) {
+    if (opts.hasOwnProperty(opt)) {
+      if (opt === '_')
+        continue;
+
+      if (!VALID_OPTS.includes(opt))
+        usage(`invalid option: -${opt}`);
+
+      nopts++;
+    }
+  }
+
+  if (nopts > 3)
+    usage('too many options');
+
+  return { cmd, args, opts };
+}
+
+function usage(err) {
+  const msg =
+`faucet-tool: ${err}
+usage:
+  $ faucet-tool createaddress [-n string] [-l string] [-b number]
+  $ faucet-tool createmultisig <required> <pubkey1> <pubkey2> ...'
+
+Options:
+  -n <network> (default "main")
+  -l <seed language> (default "english")
+  -b <bits of entropy> (default 256)`;
+
+  console.log(msg);
+  process.exit(1);
+}

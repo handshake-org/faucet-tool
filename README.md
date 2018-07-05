@@ -1,4 +1,4 @@
-# HNS Faucet Tool
+# Handshake Faucet Tool
 This tool generates the first receiving address, in the first account of a
 BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic phrase which was
 used to seed the wallet. **It is important that you keep this seed phrase
@@ -6,27 +6,39 @@ private. It is the only way to access your HNS coins. Do not share your
 mnemonic seed phrase with anyone that should not have access to the contents
 of the wallet.**
 
+>Note: **Running this software on compromised hardware will leave you in
+danger of losing funds.**
+
+## Requirements
+* Linux, OSX or Windows
+* git
+* node.js >=v8.0.0
+* npm >=v4.0.0
+
+### Additional requirements to build binaries
+* [ pkg ](https://github.com/zeit/pkg)
+* tar
+
 ## Browser tool
 ```
 $ git clone git@github.com:handshake-org/faucet-tool.git
 $ cd faucet-tool
+$ npm install
+$ npm run webpack
 $ open browser/index.html
-
-FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
 ```
 
 ## CLI tool
 ```
 $ git clone git@github.com:handshake-org/faucet-tool.git
 $ cd faucet-tool
-$ ./bin/cli
-
-FOLLOW INSTRUCTIONS AND SEND ADDRESS TO HANDSHAKE FOUNDATION
+$ npm install
+$ ./bin/faucet-tool createaddress
 ```
 
 ## Notes
 
-This tool uses bmonic.js for generating mnemonic seed phrases.
+This tool uses faucet-tool.js for generating mnemonic seed phrases.
 
 Forked from https://github.com/handshake-org/hskd
 

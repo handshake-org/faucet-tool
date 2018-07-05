@@ -1,0 +1,65 @@
+#!/bin/sh
+# This command packages signed tarballs of the
+# cli and browser faucet tools.
+#
+# This command takes a git ref as its first argument.
+# The second argument is an output dir for the build
+# artifacts.
+#
+# usage: build <releaseRef> <outputDir>
+
+set -eu
+
+usage() {
+  echo "Usage: $0 <releaseRef> <outputDir>"
+  exit 1
+}
+trap usage ERR
+
+if [ -z "$1" -o -z "$2" ]; then
+  usage
+fi
+
+releaseRef=$1
+
+# verify output dir and expand to absolute
+cd $2 > /dev/null
+outputDir=`pwd`
+
+# Clone repository into tempdir and check out specified release ref.
+tempDir=`mktemp -d`
+trap "rm -rf $tempDir" EXIT
+
+echo "cloning git@github.com:handshake-org/faucet-tool.git"
+buildPath=$tempDir/faucet-tool
+mkdir -p $buildPath
+git clone git@github.com:handshake-org/faucet-tool.git $buildPath
+cd $buildPath
+git checkout $releaseRef
+
+echo "running npm install..."
+npm install
+
+echo "running npm run webpack..."
+npm run webpack
+
+echo "building browser faucet tool..."
+tar -czvf "$outputDir"/faucet-tool-browser.tar.gz ./browser
+
+for os in macos linux win
+do
+  echo "building "$os"-x64 faucet tool..."
+  buildDir=./faucet-tool-"$os"
+  mkdir -p $buildDir
+  pkg --options max_old_space_size=4096 --output $buildDir/faucet-tool -t node8-"$os" ./bin/faucet-tool
+
+  if [ "$os" == "win" ]; then
+    tar -czvf "$outputDir"/faucet-tool-"$os"-x64.tar.gz -C $buildDir faucet-tool.exe
+  else
+    tar -czvf "$outputDir"/faucet-tool-"$os"-x64.tar.gz -C $buildDir faucet-tool
+  fi
+done
+
+cd - # on some platforms (e.g. Windows), the cleanup trap cannot proceed unless we navigate away from the tempdir
+
+echo "Done, build artifacts placed in $outputDir"
