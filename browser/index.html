@@ -78,9 +78,16 @@ the submit address field in the handshake.org faucet sign-up flow.</p>
 
 <div>
 <h2>Your Encryped Address</h2>
-<p>This is your HNS address encrypted with a PGP pubkey.
-If you are an official project sponsor please email this address to the Handshake Foundation.</p>
+<p>This is your HNS address encrypted with a PGP pubkey. If you are an official project
+sponsor please email this address to the Handshake foundation.</p>
 <textarea id="ciphertext" rows="22" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Encrypted address: QR code</h2>
+<p>For your convenience, a QR code has been generated below which encodes the pgp encrypted
+address.Scan and email to the Handshake foundation.</p>
+<canvas id='canvas'></canvas>
 </div>
 
 <div>
@@ -121,6 +128,7 @@ If you are an official project sponsor please email this address to the Handshak
 </div>
 </footer>
 
+<script src='qrcode.min.js'></script>
 <script type='text/javascript'>
 
 document.addEventListener("DOMContentLoaded", (e) => {
@@ -129,19 +137,26 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const phrase = document.getElementById('phrase');
   const plaintext = document.getElementById('plaintext');
   const ciphertext = document.getElementById('ciphertext');
+  const canvas = document.getElementById('canvas');
   const privkey = document.getElementById('privkey');
   const pubkey = document.getElementById('pubkey');
   const errorBox = document.getElementById('error-box');
+  const top = document.getElementById('top');
+
   const hidden = document.getElementsByClassName('generate hide');
   const shown = document.getElementsByClassName('show');
-  const top = document.getElementById('top');
+
   const FaucetTool = faucetTool.FaucetTool;
   const tool = new FaucetTool();
 
   generate.addEventListener('click', function(e) {
     e.preventDefault();
-    FaucetTool.encryptData(tool.getAddress())
-      .then(function(res) {
+    FaucetTool.encryptData(tool.getAddress()).then(function(res) {
+      QRCode.toCanvas(canvas, res, function(err, canvas) {
+        if (err) {
+          throw new Error(err);
+        }
+
         ciphertext.innerHTML = res;
         phrase.innerHTML = tool.getPhrase();
         plaintext.innerHTML = tool.getAddress();
@@ -154,14 +169,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
         while (hidden.length > 0) {
           hidden[0].classList.remove('hide');
         }
+
         for (let i = 0; i < shown.length; i++) {
           shown[i].classList.add('hide');
         }
-      })
-      .catch(function(err) {
-        errorBox.classList.remove('hide');
-        errorBox.innerHTML = err;
       });
+    })
+    .catch(function(err) {
+      errorBox.classList.remove('hide');
+      errorBox.innerHTML = err;
+    });
   });
 });
 
