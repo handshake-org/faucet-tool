@@ -3,7 +3,7 @@
 'use strict';
 
 const argv = require('minimist')(process.argv.slice(2));
-const { FaucetTool, FaucetToolError } = require('..');
+const { FaucetTool } = require('..');
 const fs = require('fs');
 const os = require('os');
 const QRCode = require('qrcode');
@@ -146,7 +146,7 @@ function parseCmd(argv) {
 
 function usage(err) {
   const msg =
-`faucet-toot: ${err}
+`faucet-tool: ${err}
 usage:
   $ faucet-tool createaddress [-n string] [-l string] [-b number]
   $ faucet-tool createmultisig <required> <pubkey1> <pubkey2> ...'
