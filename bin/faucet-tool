@@ -2,15 +2,27 @@
 
 'use strict';
 
+/**
+ * Module imports
+ */
+
 const argv = require('minimist')(process.argv.slice(2));
 const { FaucetTool } = require('..');
 const fs = require('fs');
 const os = require('os');
 const QRCode = require('qrcode');
 
+/**
+ * Constants
+ */
+
 const FAUCET_TOOL_DIR = os.homedir() + '/.hnsFaucetTool/';
 const VALID_CMDS = ['createaddress', 'createmultisig'];
 const VALID_OPTS  = ['n', 'l', 'b'];
+
+/**
+ * Processes commands and runs tool
+ */
 
 (async function() {
   try {
@@ -38,6 +50,12 @@ const VALID_OPTS  = ['n', 'l', 'b'];
   }
 }());
 
+/**
+ * Creates a Bech32 encoded, HNS address.
+ * @param {Object} tool - an instance of FaucetTool
+ * @param {Array} args - arguments captured from standard input
+ */
+
 async function createAddress(tool, args) {
   if (args.length !== 0)
     usage(`createaddress expects 0 args`);
@@ -64,6 +82,11 @@ ${tool.getPubkey()}
   return render(address, ciphertext, details);
 }
 
+/**
+ * Creates a Bech32 encoded, HNS multisig address.
+ * @param {Object} tool - an instance of FaucetTool
+ * @param {Array} args - arguments captured from standard input
+ */
 async function createMultisig(tool, [nrequired, ...keys]) {
   if ((nrequired >>> 0) !== nrequired)
     usage('nrequired should be an Int');
@@ -95,6 +118,14 @@ ${multisig.redeemScript}
   return render(multisig.address, ciphertext, details);
 }
 
+/**
+ * Renders wallet info and encrypted address to stdout
+ * and writes them as files to disk.
+ * @param {String} address - the generated address
+ * @param {String} ciphertext - the encrypted address
+ * @param {String} details - the wallet details
+ */
+
 async function render(address, ciphertext, details) {
   const prefix = FAUCET_TOOL_DIR + address;
   const detailsPath = prefix + '_details.txt';
@@ -118,6 +149,15 @@ The following files were created:
 
   console.log(details);
 }
+
+/**
+ * Parses command arguments.
+ * @param {Object} argv - parsed output minimist
+ * @returns {Object} ret - parsed command info
+ * @returns {String} ret.cmd - command name
+ * @returns {String} ret.args - command args
+ * @returns {Object} ret.opts - command options
+ */
 
 function parseCmd(argv) {
   let cmd = argv._[0],
@@ -145,6 +185,11 @@ function parseCmd(argv) {
 
   return { cmd, args, opts };
 }
+
+/**
+ * Displays error message and exits process
+ * @param {String|Error} err - the error message or object
+ */
 
 function usage(err) {
   const msg =

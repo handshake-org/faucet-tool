@@ -1,6 +1,6 @@
 #!/bin/sh
-# This command packages signed tarballs of the
-# cli and browser faucet tools.
+# This command packages compressed tarballs of the
+# cli and browser tools.
 #
 # This command takes a git ref as its first argument.
 # The second argument is an output dir for the build
