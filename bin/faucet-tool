@@ -104,9 +104,10 @@ async function render(address, ciphertext, details) {
     fs.mkdirSync(FAUCET_TOOL_DIR);
 
   details +=
-`The following files were created:
-  1. ${detailsPath}
-  2. ${codePath}
+`
+The following files were created:
+  ${detailsPath} [1]
+  ${codePath} [2]
 
   [1]: Wallet information
   [2]: QR code of encrypted address
