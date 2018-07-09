@@ -3,8 +3,12 @@
 'use strict';
 
 const argv = require('minimist')(process.argv.slice(2));
-const { FaucetTool } = require('..');
+const { FaucetTool, FaucetToolError } = require('..');
+const fs = require('fs');
+const os = require('os');
+const QRCode = require('qrcode');
 
+const FAUCET_TOOL_DIR = os.homedir() + '/.hnsFaucetTool/';
 const VALID_CMDS = ['createaddress', 'createmultisig'];
 const VALID_OPTS  = ['n', 'l', 'b'];
 
@@ -29,7 +33,7 @@ const VALID_OPTS  = ['n', 'l', 'b'];
 
     process.exit(0);
   } catch (err) {
-    usage(err.message);
+    usage(err);
     process.exit(1);
   }
 }());
@@ -38,13 +42,14 @@ async function createAddress(tool, args) {
   if (args.length !== 0)
     usage(`createaddress expects 0 args`);
 
-  const ciphertext = await FaucetTool.encryptData(tool.getAddress());
-  const out =
+  const address = tool.getAddress();
+  const ciphertext = await FaucetTool.encryptData(address);
+  const details =
 `Seed phrase:
 ${tool.getPhrase()}
 
 Address:
-${tool.getAddress()}
+${address}
 
 Encrypted address:
 ${ciphertext}
@@ -54,10 +59,9 @@ ${tool.getPrivkey()}
 
 Public key:
 ${tool.getPubkey()}
+`;
 
-exiting...`;
-
-  console.log(out);
+  return render(address, ciphertext, details);
 }
 
 async function createMultisig(tool, [nrequired, ...keys]) {
@@ -77,7 +81,7 @@ async function createMultisig(tool, [nrequired, ...keys]) {
 
   const multisig = await FaucetTool.createMultisig(tool.getNetwork(), nrequired, keys);
   const ciphertext = await FaucetTool.encryptData(multisig.address);
-  const out =
+  const details =
 `Multisig address:
 ${multisig.address}
 
@@ -86,10 +90,30 @@ ${ciphertext}
 
 Redeem script:
 ${multisig.redeemScript}
+`;
 
-exiting...`;
+  return render(multisig.address, ciphertext, details);
+}
 
-  console.log(out);
+async function render(address, ciphertext, details) {
+  const prefix = FAUCET_TOOL_DIR + address;
+  const detailsPath = prefix + '_details.txt';
+  const codePath = prefix + '_encrypted_address_QR_code.png'
+
+  if (!fs.existsSync(FAUCET_TOOL_DIR))
+    fs.mkdirSync(FAUCET_TOOL_DIR);
+
+  details +=
+`The following files were created:
+  1. ${detailsPath}
+  2. ${codePath}
+
+  [1]: Wallet information
+  [2]: QR code of encrypted address
+`;
+
+  await QRCode.toFile(codePath, ciphertext);
+  console.log(details);
 }
 
 function parseCmd(argv) {
@@ -121,7 +145,7 @@ function parseCmd(argv) {
 
 function usage(err) {
   const msg =
-`faucet-tool: ${err}
+`faucet-toot: ${err}
 usage:
   $ faucet-tool createaddress [-n string] [-l string] [-b number]
   $ faucet-tool createmultisig <required> <pubkey1> <pubkey2> ...'
@@ -129,8 +153,14 @@ usage:
 Options:
   -n <network> (default "main")
   -l <seed language> (default "english")
-  -b <bits of entropy> (default 256)`;
+  -b <bits of entropy> (default 256)
+`;
 
-  console.log(msg);
+  if(typeof err === 'string') {
+    console.log(msg);
+  } else {
+    console.error(err);
+  }
+
   process.exit(1);
 }
