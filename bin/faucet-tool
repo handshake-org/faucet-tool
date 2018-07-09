@@ -103,6 +103,9 @@ async function render(address, ciphertext, details) {
   if (!fs.existsSync(FAUCET_TOOL_DIR))
     fs.mkdirSync(FAUCET_TOOL_DIR);
 
+  await QRCode.toFile(codePath, ciphertext);
+  fs.writeFileSync(detailsPath, details);
+
   details +=
 `
 The following files were created:
@@ -113,7 +116,6 @@ The following files were created:
   [2]: QR code of encrypted address
 `;
 
-  await QRCode.toFile(codePath, ciphertext);
   console.log(details);
 }
 
