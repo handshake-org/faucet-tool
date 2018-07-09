@@ -10,30 +10,160 @@
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="styles.css" />
 <link rel="stylesheet" type="text/css" href="ibmplexsans.css" />
 <link rel="stylesheet" type="text/css" href="ibmplexmono.css" />
-<script src="faucetTool.bundle.js"></script>
 
+<style>
+/*
+  Eric Meyer's CSS Reset
+  http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+/*
+  HTML5 display-role reset for older browsers
+*/
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/*
+  Start custom styles
+*/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #f7f9fb;
+  display: flex;
+  flex-direction: column;
+  font-family: "IBM Plex Sans", Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  line-height: 34px;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+h1 {
+  font-family: "IBM Plex Sans", Helvetica, sans-serif;
+  font-size: 68px;
+  font-weight: 600;
+  line-height: 75px;
+  margin: 0 0 30px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 46px;
+  margin: 15px 0;
+}
+
+header {
+  padding: 30px 60px;
+}
+
+section {
+  flex: 1 0 auto;
+}
+
+section > div {
+  margin: 0 auto;
+  max-width: 884px;
+  padding: 30px 60px 60px;
+}
+
+p {
+  margin: 15px 0;
+}
+
+textarea {
+  background-color: #f7f9fb;
+  border: 1px solid grey;
+  border-radius: 3px;
+  font-family: "IBM Plex Mono", Helvetica, sans-serif;
+  font-size: 17px;
+  min-width: 615px;
+  padding: 15px;
+  width: 100%;
+}
+
+.button {
+  background-color: #693AFA;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  height: 24px;
+  line-height: 24px;
+  margin-top: 15px;
+  padding: 16px 30px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #5630CD;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  flex-shrink: 0;
+  font-family: "IBM Plex Mono", Helvetica, sans-serif;
+  font-size: 12px;
+  padding: 30px 60px;
+}
+
+footer a {
+  color: #fff;
+}
+
+.alt {
+  background-color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+#error-box {
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  border-radius: 5px;
+  color: #a94442;
+  height: 80px;
+  margin: 40px 0 0;
+  padding: 10px;
+}
+</style>
 </head>
 
-<body class="landing light">
+<body>
 
 <header>
-<nav class="nav-bar">
-
-<a href="./index.html" class="nav-logo">
-<img alt class="logo logo-dark" src="logo.svg" />
-</a>
-
+<nav>
+<a href="./index.html"><img alt="Handshake logo" src="logo.svg" /></a>
 </nav>
 </header>
 
-<section id="top" class="default">
-<div class="center-wrap">
-
-<div class="hero no-split">
+<section>
 <div>
+
 <h1 class="center">HNS Address Generator</h1>
 <p class="generate">This tool generates the first receiving address, in the
 first account of a BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic
@@ -47,27 +177,21 @@ The keypair could instead be included in a multisig address. This repo includes 
 tool which offers multisig support as well as support for testnet, regtest, and simnet
 address generation.</p>
 
-<p class="button-wrap show">
-  <a href="./index.html" id="generate" class="button">Generate address</a>
-</p>
+<a href="./index.html" id="generate" class="show button">Generate address</a>
+
 <div id="error-box" class="error hide"></div>
-</div>
-</div>
 
 </div>
 </section>
 
-<section class="generate hide">
-<div class="center-wrap">
-<div class="hero no-split">
-
+<section class="alt generate hide">
 <div>
 <h2>Your Seed Phrase</h2>
 <p class="onboarding-text-blob-max-width">This is your seed phrase. To access
 your wallet in the future, please save your seed phrase and back it up 
 externally. <strong>Write it down. Back it up. There is no way to recover
 your wallet if you do not do this.</strong></p>
-<textarea id="phrase" readonly rows="2"></textarea>
+<textarea id="phrase" readonly rows="3"></textarea>
 </div>
 
 <div>
@@ -94,7 +218,7 @@ address. Scan and email to the Handshake Foundation.</p>
 
 <div>
 <h2>Your Private Key</h2>
-<p>This is the private key used to derive your HNS address.
+<p>This is the private key used to derive your HNS address.</p>
 <textarea id="privkey" rows="1" readonly></textarea>
 </div>
 
@@ -102,71 +226,43 @@ address. Scan and email to the Handshake Foundation.</p>
 <h2>Your Public Key</h2>
 <p>This is the public key which was hashed to produce your HNS address.</p>
 <textarea id="pubkey" rows="1" readonly></textarea>
+<a href="./index.html" class="button">Restart</a>
 </div>
 
-<div>
-<p class="button-wrap generate hide"><a href="./index.html" class="button">Restart</a></p>
-</div>
-</div>
-
-</div>
-</section>
-
-<section class="hide">
-<div class="center-wrap">
-<div class="hero no-split">
-
-<div>
-<div><input type='text' /></div>
-</div>
-
-</div>
-</div>
 </section>
 
 <footer id='footer'>
-<div class='footer-wrap bottom-wrap'>
 <div class='copy'>&copy; 2018 Handshake&nbsp;<a href='https://opensource.org/licenses/mit-license.php'>(MIT/Expat License)</a></div>
-</div>
 </footer>
 
+<script src="faucetTool.bundle.js"></script>
 <script src='qrcode.min.js'></script>
 <script type='text/javascript'>
 
 document.addEventListener("DOMContentLoaded", (e) => {
-
-  const generate = document.getElementById('generate');
-  const phrase = document.getElementById('phrase');
-  const plaintext = document.getElementById('plaintext');
-  const ciphertext = document.getElementById('ciphertext');
-  const canvas = document.getElementById('canvas');
-  const privkey = document.getElementById('privkey');
-  const pubkey = document.getElementById('pubkey');
-  const errorBox = document.getElementById('error-box');
-  const top = document.getElementById('top');
-
-  const hidden = document.getElementsByClassName('generate hide');
-  const shown = document.getElementsByClassName('show');
-
   const FaucetTool = faucetTool.FaucetTool;
   const tool = new FaucetTool();
 
-  generate.addEventListener('click', function(e) {
+  document.getElementById('generate').addEventListener('click', function(e) {
+    const address = tool.getAddress();
+
     e.preventDefault();
-    FaucetTool.encryptData(tool.getAddress()).then(function(res) {
-      QRCode.toCanvas(canvas, res, function(err, canvas) {
+
+    FaucetTool.encryptData(address).then(function(ciphertext) {
+      const canvas = document.getElementById('canvas');
+      const hidden = document.getElementsByClassName('generate hide');
+      const shown = document.getElementsByClassName('show');
+
+      QRCode.toCanvas(canvas, ciphertext, function(err, canvas) {
         if (err) {
           throw new Error(err);
         }
 
-        ciphertext.innerHTML = res;
-        phrase.innerHTML = tool.getPhrase();
-        plaintext.innerHTML = tool.getAddress();
-        privkey.innerHTML = tool.getPrivkey();
-        pubkey.innerHTML = tool.getPubkey();
-
-        // CSS Hack for proper footer placement
-        top.style.minHeight = 'auto';
+        document.getElementById('ciphertext').innerHTML = ciphertext;
+        document.getElementById('phrase').innerHTML = tool.getPhrase();
+        document.getElementById('plaintext').innerHTML = tool.getAddress();
+        document.getElementById('privkey').innerHTML = tool.getPrivkey();
+        document.getElementById('pubkey').innerHTML = tool.getPubkey();
 
         while (hidden.length > 0) {
           hidden[0].classList.remove('hide');
@@ -178,6 +274,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       });
     })
     .catch(function(err) {
+      const errorBox = document.getElementById('error-box');
       errorBox.classList.remove('hide');
       errorBox.innerHTML = err;
     });
