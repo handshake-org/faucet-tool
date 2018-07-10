@@ -32,53 +32,53 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 @font-face {
   font-family: "IBM Plex Mono";
   font-weight: 400;
-  src: url('./font/IBMPlexMono-Regular.ttf');
+  src: url('../font/IBMPlexMono-Regular.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: italic;
   font-weight: 400;
-  src: url('./font/IBMPlexMono-Italic.ttf');
+  src: url('../font/IBMPlexMono-Italic.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Mono";
   font-weight: 600;
-  src: url('./font/IBMPlexMono-SemiBold.ttf');
+  src: url('../font/IBMPlexMono-SemiBold.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: italic;
   font-weight: 600;
-  src: url('./font/IBMPlexMono-SemiBoldItalic.ttf');
+  src: url('../font/IBMPlexMono-SemiBoldItalic.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Sans";
   font-weight: 400;
-  src: url('./font/IBMPlexSans-Regular.ttf');
+  src: url('../font/IBMPlexSans-Regular.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Sans";
   font-style: italic;
   font-weight: 400;
-  src: url('./font/IBMPlexSans-Italic.ttf');
+  src: url('../font/IBMPlexSans-Italic.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Sans";
   font-weight: 600;
-  src: url('./font/IBMPlexSans-SemiBold.ttf');
+  src: url('../font/IBMPlexSans-SemiBold.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Sans";
   font-style: italic;
   font-weight: 600;
-  src: url('./font/IBMPlexSans-SemiBoldItalic.ttf');
+  src: url('../font/IBMPlexSans-SemiBoldItalic.ttf');
 }
 
 html, body {
@@ -131,6 +131,10 @@ section > div {
 
 p {
   margin: 15px 0;
+}
+
+ul {
+  list-style-type: none;
 }
 
 textarea {
@@ -191,4 +195,29 @@ footer a {
   height: 80px;
   margin: 40px 0 0;
   padding: 10px;
+}
+
+#terms-of-use {
+  font-family: "IBM Plex Mono", Helvetica, sans-serif;
+}
+
+#terms-of-use ul li {
+  line-height: 32px;
+  margin-bottom: 30px;
+}
+
+#terms-of-use a {
+  color: #693AFA;
+}
+
+#terms-of-use a:hover {
+  color: #5630CD;
+}
+
+.copy a {
+  margin: 0 10px;
+}
+
+.copy a + a {
+  margin-left: 0px;
 }
