@@ -15,6 +15,7 @@ const HDPrivateKey = require('./lib/private');
 const KeyRing = require('./lib/keyring');
 const Mnemonic = require('./lib/mnemonic');
 const Script = require('./lib/script');
+const secp256k1 = require('bcrypto/lib/secp256k1');
 
 const ADDR_PREFIX = {
   'main': 'hs',
@@ -204,6 +205,24 @@ class FaucetTool {
   }
 
   /**
+   * Validates pubkey
+   * @param {String} pubkey
+   * @returns {Boolean} true if pubkey is valid and compressed
+   */
+
+  static isValidPubkey(pubkey) {
+    if (typeof pubkey !== 'string')
+      return false;
+
+    if (pubkey.length !== 66)
+      return false;
+
+    const buf = Buffer.from(pubkey, 'hex');
+
+    return secp256k1.publicKeyVerify(buf);
+  }
+
+  /**
    * Creates a multisig address formatted for the provided network.
    * @param {String} network
    * @param {Number} nrequired - minimum number of signatures required
@@ -230,7 +249,12 @@ class FaucetTool {
     if (nrequired < 1 || pubkeys.length < nrequired || pubkeys.length > 16)
       throw new FaucetToolError('invalid m of n configuration');
 
-    const keys = pubkeys.map(pubkey => Buffer.from(pubkey, 'hex'));
+    const keys = pubkeys.map(pubkey => {
+      if(!FaucetTool.isValidPubkey(pubkey))
+        throw new Error(`invalid pubkey: ${pubkey}`);
+
+      return Buffer.from(pubkey, 'hex')
+    });
     const script = Script.fromMultisig(nrequired, keys.length, keys);
 
     if (script.getSize() > MAX_SCRIPT_PUSH)

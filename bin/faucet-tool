@@ -98,7 +98,7 @@ async function createMultisig(tool, [nrequired, ...keys]) {
     usage(`createmultisig expects at least 3 args`);
 
   keys.forEach(key => {
-    if (!/[0-9A-Fa-f]{66}/g.test(key))
+    if (!FaucetTool.isValidPubkey(key))
       usage(`invalid pubkey: ${key}`);
   });
 
