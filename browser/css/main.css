@@ -1,0 +1,194 @@
+/*
+  Eric Meyer's CSS Reset
+  http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/*
+  HTML5 display-role reset for older browsers
+*/
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/*
+  Start custom styles
+*/
+
+/*
+  Fonts
+*/
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: 400;
+  src: url('./font/IBMPlexMono-Regular.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: italic;
+  font-weight: 400;
+  src: url('./font/IBMPlexMono-Italic.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: 600;
+  src: url('./font/IBMPlexMono-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: italic;
+  font-weight: 600;
+  src: url('./font/IBMPlexMono-SemiBoldItalic.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-weight: 400;
+  src: url('./font/IBMPlexSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: url('./font/IBMPlexSans-Italic.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-weight: 600;
+  src: url('./font/IBMPlexSans-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: italic;
+  font-weight: 600;
+  src: url('./font/IBMPlexSans-SemiBoldItalic.ttf');
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #f7f9fb;
+  display: flex;
+  flex-direction: column;
+  font-family: "IBM Plex Sans", Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  line-height: 34px;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+h1 {
+  font-family: "IBM Plex Sans", Helvetica, sans-serif;
+  font-size: 68px;
+  font-weight: 600;
+  line-height: 75px;
+  margin: 0 0 30px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 46px;
+  margin: 15px 0;
+}
+
+header {
+  padding: 30px 60px;
+}
+
+section {
+  flex: 1 0 auto;
+}
+
+section > div {
+  margin: 0 auto;
+  max-width: 884px;
+  padding: 30px 60px 60px;
+}
+
+p {
+  margin: 15px 0;
+}
+
+textarea {
+  background-color: #f7f9fb;
+  border: 1px solid grey;
+  border-radius: 3px;
+  font-family: "IBM Plex Mono", Helvetica, sans-serif;
+  font-size: 17px;
+  min-width: 615px;
+  padding: 15px;
+  width: 100%;
+}
+
+.button {
+  background-color: #693AFA;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  height: 24px;
+  line-height: 24px;
+  margin-top: 15px;
+  padding: 16px 30px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #5630CD;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  flex-shrink: 0;
+  font-family: "IBM Plex Mono", Helvetica, sans-serif;
+  font-size: 12px;
+  padding: 30px 60px;
+}
+
+footer a {
+  color: #fff;
+}
+
+.alt {
+  background-color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+#error-box {
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  border-radius: 5px;
+  color: #a94442;
+  height: 80px;
+  margin: 40px 0 0;
+  padding: 10px;
+}

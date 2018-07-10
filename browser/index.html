@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
 <html lang='en'>
+
 <head>
 
 <title>HNS Address Generator</title>
@@ -9,155 +9,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="ibmplexsans.css" />
-<link rel="stylesheet" type="text/css" href="ibmplexmono.css" />
+<link rel="stylesheet" href="./css/main.css">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 
-<style>
-/*
-  Eric Meyer's CSS Reset
-  http://meyerweb.com/eric/tools/css/reset/ 
-  v2.0 | 20110126
-  License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline; }
-
-/*
-  HTML5 display-role reset for older browsers
-*/
-
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block; }
-
-/*
-  Start custom styles
-*/
-
-html, body {
-  height: 100%;
-}
-
-body {
-  background-color: #f7f9fb;
-  display: flex;
-  flex-direction: column;
-  font-family: "IBM Plex Sans", Helvetica, sans-serif;
-  font-size: 17px;
-  font-weight: normal;
-  line-height: 34px;
-  margin: 0 auto;
-  max-width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  padding: 0;
-}
-
-h1 {
-  font-family: "IBM Plex Sans", Helvetica, sans-serif;
-  font-size: 68px;
-  font-weight: 600;
-  line-height: 75px;
-  margin: 0 0 30px;
-}
-
-h2 {
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 46px;
-  margin: 15px 0;
-}
-
-header {
-  padding: 30px 60px;
-}
-
-section {
-  flex: 1 0 auto;
-}
-
-section > div {
-  margin: 0 auto;
-  max-width: 884px;
-  padding: 30px 60px 60px;
-}
-
-p {
-  margin: 15px 0;
-}
-
-textarea {
-  background-color: #f7f9fb;
-  border: 1px solid grey;
-  border-radius: 3px;
-  font-family: "IBM Plex Mono", Helvetica, sans-serif;
-  font-size: 17px;
-  min-width: 615px;
-  padding: 15px;
-  width: 100%;
-}
-
-.button {
-  background-color: #693AFA;
-  border-radius: 5px;
-  color: white;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  height: 24px;
-  line-height: 24px;
-  margin-top: 15px;
-  padding: 16px 30px;
-  text-decoration: none;
-}
-
-.button:hover {
-  background-color: #5630CD;
-}
-
-footer {
-  background-color: #000;
-  color: #fff;
-  flex-shrink: 0;
-  font-family: "IBM Plex Mono", Helvetica, sans-serif;
-  font-size: 12px;
-  padding: 30px 60px;
-}
-
-footer a {
-  color: #fff;
-}
-
-.alt {
-  background-color: #fff;
-}
-
-.hide {
-  display: none;
-}
-
-#error-box {
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
-  border-radius: 5px;
-  color: #a94442;
-  height: 80px;
-  margin: 40px 0 0;
-  padding: 10px;
-}
-</style>
 </head>
 
 <body>
 
 <header>
 <nav>
-<a href="./index.html"><img alt="Handshake logo" src="logo.svg" /></a>
+<a href="./index.html"><img alt="Handshake logo" src="./img/logo.svg" /></a>
 </nav>
 </header>
 
@@ -235,54 +96,10 @@ address. Scan and email to the Handshake Foundation.</p>
 <div class='copy'>&copy; 2018 Handshake&nbsp;<a href='https://opensource.org/licenses/mit-license.php'>(MIT/Expat License)</a></div>
 </footer>
 
-<script src="faucetTool.bundle.js"></script>
-<script src='qrcode.min.js'></script>
-<script type='text/javascript'>
+<script src='./js/faucetTool.bundle.js'></script>
+<script src='./js/qrcode.min.js'></script>
+<script src='./js/main.js'></script>
 
-document.addEventListener("DOMContentLoaded", (e) => {
-  const FaucetTool = faucetTool.FaucetTool;
-  const tool = new FaucetTool();
-
-  document.getElementById('generate').addEventListener('click', function(e) {
-    const address = tool.getAddress();
-
-    e.preventDefault();
-
-    FaucetTool.encryptData(address).then(function(ciphertext) {
-      const canvas = document.getElementById('canvas');
-      const hidden = document.getElementsByClassName('generate hide');
-      const shown = document.getElementsByClassName('show');
-
-      QRCode.toCanvas(canvas, ciphertext, function(err, canvas) {
-        if (err) {
-          throw new Error(err);
-        }
-
-        document.getElementById('ciphertext').innerHTML = ciphertext;
-        document.getElementById('phrase').innerHTML = tool.getPhrase();
-        document.getElementById('plaintext').innerHTML = tool.getAddress();
-        document.getElementById('privkey').innerHTML = tool.getPrivkey();
-        document.getElementById('pubkey').innerHTML = tool.getPubkey();
-
-        while (hidden.length > 0) {
-          hidden[0].classList.remove('hide');
-        }
-
-        for (let i = 0; i < shown.length; i++) {
-          shown[i].classList.add('hide');
-        }
-      });
-    })
-    .catch(function(err) {
-      const errorBox = document.getElementById('error-box');
-      errorBox.classList.remove('hide');
-      errorBox.innerHTML = err;
-    });
-  });
-});
-
-</script>
 </body>
 
 </html>
-
