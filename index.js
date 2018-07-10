@@ -247,7 +247,8 @@ class FaucetTool {
       throw new FaucetToolError('pubkeys must be an array');
 
     if (nrequired < 1 || pubkeys.length < nrequired || pubkeys.length > 16)
-      throw new FaucetToolError('invalid m of n configuration');
+      throw new FaucetToolError(
+        `invalid m of n configuration: ${nrequired} of ${pubkeys.length}`);
 
     const keys = pubkeys.map(pubkey => {
       if(!FaucetTool.isValidPubkey(pubkey))

@@ -94,8 +94,8 @@ async function createMultisig(tool, [nrequired, ...keys]) {
   if (nrequired > keys.length)
     usage('nrequired should not be larger than the number of keys');
 
-  if (nrequired + keys.length < 3)
-    usage(`createmultisig expects at least 3 args`);
+  if (nrequired + keys.length < 2)
+    usage(`invalid m of n configuration: ${nrequired} of ${keys.length}`);
 
   keys.forEach(key => {
     if (!FaucetTool.isValidPubkey(key))
