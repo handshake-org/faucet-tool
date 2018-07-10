@@ -11,7 +11,7 @@ module.exports = {
   output: {
     library: 'faucetTool',
     libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'browser'),
+    path: path.resolve(__dirname, 'browser/js'),
     filename: '[name].bundle.js'
   },
   resolve: {
