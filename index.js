@@ -276,6 +276,7 @@ class FaucetTool {
   }
 }
 
+FaucetTool.version = require('./package').version
 FaucetTool.FaucetTool = FaucetTool;
 FaucetTool.FaucetToolError = FaucetToolError;
 

@@ -7,7 +7,7 @@
  */
 
 const argv = require('minimist')(process.argv.slice(2));
-const { FaucetTool } = require('..');
+const { version, FaucetTool } = require('..');
 const fs = require('fs');
 const os = require('os');
 const QRCode = require('qrcode');
@@ -17,7 +17,7 @@ const QRCode = require('qrcode');
  */
 
 const FAUCET_TOOL_DIR = os.homedir() + '/.hnsFaucetTool/';
-const VALID_CMDS = ['createaddress', 'createmultisig'];
+const VALID_CMDS = ['version', 'createaddress', 'createmultisig'];
 const VALID_OPTS  = ['n', 'l', 'b'];
 
 /**
@@ -35,10 +35,13 @@ const VALID_OPTS  = ['n', 'l', 'b'];
 
     switch (cmd) {
       case VALID_CMDS[0]:
+        console.log(version);
+        break;
+      case VALID_CMDS[1]:
         await createAddress(tool, args);
         break;
 
-      case VALID_CMDS[1]:
+      case VALID_CMDS[2]:
         await createMultisig(tool, args);
         break;
     }
