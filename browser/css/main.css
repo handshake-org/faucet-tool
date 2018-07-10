@@ -115,6 +115,13 @@ h2 {
   margin: 15px 0;
 }
 
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 34px;
+  margin: 15px 0;
+}
+
 header {
   padding: 30px 60px;
 }
@@ -220,4 +227,20 @@ footer a {
 
 .copy a + a {
   margin-left: 0px;
+}
+
+a + a {
+  margin-left: 15px;
+}
+
+.head {
+  display: inline;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+select {
+  display: inline-block;
+  height: 35px;
+  width: 35px;
 }

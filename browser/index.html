@@ -25,7 +25,8 @@
 <section>
 <div>
 
-<h1 class="center">HNS Address Generator</h1>
+<h1 class="generate">HNS Address Generator</h1>
+<h1 class="multisig hide">HNS Multisig Address Generator</h1>
 <p class="generate">This tool generates the first receiving address, in the
 first account of a BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic
 phrase which was used to seed the wallet.&nbsp;<strong>It is important that you keep
@@ -33,12 +34,15 @@ this seed phrase private. It is the only way to access your wallet. Do not share
 your seed phrase with anyone that should not have access to the contents of
 the wallet.</strong></p>
 
-<p>This tool also generates the specific keypair used to derive the receiving address.
-The keypair could instead be included in a multisig address. This repo includes a cli
-tool which offers multisig support as well as support for testnet, regtest, and simnet
-address generation.</p>
+<p class="generate">This tool also generates the specific keypair used to derive the receiving address.
+The keypair could instead be included in a multisig address.</p>
+
+<p class="multisig hide">This tool generates an m-of-n multisig address. It also generates the redeem
+script necessary to spend coins sent to the address.&nbsp;<strong>It is important that you record this
+redeem script. You must include the redeem script in a transaction spending these coins.</strong></p>
 
 <a href="./index.html" id="generate" class="show button">Generate address</a>
+<a href="./index.html" id="multisig" class="show button">Generate multisig</a>
 
 <div id="error-box" class="error hide"></div>
 
@@ -46,6 +50,7 @@ address generation.</p>
 </section>
 
 <section class="alt generate hide">
+
 <div>
 <h2>Your Seed Phrase</h2>
 <p class="onboarding-text-blob-max-width">This is your seed phrase. To access
@@ -71,7 +76,7 @@ sponsor please email this address to the Handshake Foundation.</p>
 </div>
 
 <div>
-<h2>Your Encrypted address: QR code</h2>
+<h2>Your Encrypted Address: QR code</h2>
 <p>For your convenience, a QR code has been generated below which encodes the pgp encrypted
 address. Scan and email to the Handshake Foundation.</p>
 <canvas id='canvas'></canvas>
@@ -88,6 +93,51 @@ address. Scan and email to the Handshake Foundation.</p>
 <p>This is the public key which was hashed to produce your HNS address.</p>
 <textarea id="pubkey" rows="1" readonly></textarea>
 <a href="./index.html" class="button">Restart</a>
+</div>
+
+</section>
+
+<section class="alt hide multisig">
+
+<div>
+<h2>Add Signers</h2>
+<p>
+Enter the hex encoded pubkey of each possible signer.<br/>
+Separate each pubkey with spaces, newlines, commas or semicolons.
+</p>
+<textarea id="signers" rows="15"></textarea>
+<h3>Signer List</h3>
+<table id="n" rules="row"></table>
+<h3>Signatures Required</h3>
+<select id="m"><option>M</option></select><span id="of">&nbsp;of&nbsp;N</span>
+</div>
+
+<div>
+<h2>Your Multisig Address</h2>
+<p>This is your HNS multisig address. We will use this address to send you your HNS coins
+after the mainnet launch. If you are a faucet participant, please paste this into
+the submit address field in the handshake.org faucet sign-up flow.</p>
+<textarea id="multi-plaintext" rows="1" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Redeem Script</h2>
+<p>This is your redeem script. <strong>You must provide this redeem script when spending your coins.</strong></p>
+<textarea id="redeem" rows="5" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Encryped Address</h2>
+<p>This is your HNS address encrypted with a PGP pubkey. If you are an official project
+sponsor please email this address to the Handshake Foundation.</p>
+<textarea id="multi-ciphertext" rows="22" readonly></textarea>
+</div>
+
+<div>
+<h2>Your Encrypted address: QR code</h2>
+<p>For your convenience, a QR code has been generated below which encodes the pgp encrypted
+address. Scan and email to the Handshake Foundation.</p>
+<canvas id='multi-canvas'></canvas>
 </div>
 
 </section>
