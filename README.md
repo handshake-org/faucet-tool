@@ -6,7 +6,7 @@ private. It is the only way to access your HNS coins. Do not share your
 mnemonic seed phrase with anyone that should not have access to the contents
 of the wallet.**
 
->Note: **Running this software on compromised hardware will leave you in
+>Note: **running this software on compromised hardware will leave you in
 danger of losing funds.**
 
 ## Requirements
