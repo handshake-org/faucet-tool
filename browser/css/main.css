@@ -229,7 +229,7 @@ footer a {
   margin-left: 0px;
 }
 
-a + a {
+.show.button + .show.button {
   margin-left: 15px;
 }
 

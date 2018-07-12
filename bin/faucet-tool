@@ -18,7 +18,7 @@ const QRCode = require('qrcode');
 
 const FAUCET_TOOL_DIR = os.homedir() + '/.hnsFaucetTool/';
 const VALID_CMDS = ['version', 'createaddress', 'createmultisig'];
-const VALID_OPTS  = ['n', 'l', 'b'];
+const VALID_OPTS  = ['n', 'l', 'b', 'backup', 'show-keys', 'project-sponsor'];
 
 /**
  * Processes commands and runs tool
@@ -38,11 +38,11 @@ const VALID_OPTS  = ['n', 'l', 'b'];
         console.log(version);
         break;
       case VALID_CMDS[1]:
-        await createAddress(tool, args);
+        await createAddress(tool, args, opts);
         break;
 
       case VALID_CMDS[2]:
-        await createMultisig(tool, args);
+        await createMultisig(tool, args, opts);
         break;
     }
 
@@ -56,41 +56,38 @@ const VALID_OPTS  = ['n', 'l', 'b'];
 /**
  * Creates a Bech32 encoded, HNS address.
  * @param {Object} tool - an instance of FaucetTool
- * @param {Array} args - arguments captured from standard input
+ * @param {Array} args - arguments captured from stdin
+ * @param {Object} opts - command options captures from stdin
  */
 
-async function createAddress(tool, args) {
+async function createAddress(tool, args, opts) {
   if (args.length !== 0)
-    usage(`createaddress expects 0 args`);
+    usage(`invalid arguments: ${args}`);
 
-  const address = tool.getAddress();
-  const ciphertext = await FaucetTool.encryptData(address);
-  const details =
-`Seed phrase:
-${tool.getPhrase()}
+  let ciphertext,
+      details = `Seed phrase:\n${tool.getPhrase()}` +
+                `\n\nAddress:\n${tool.getAddress()}`;
 
-Address:
-${address}
+  if (opts['project-sponsor']) {
+    ciphertext = await FaucetTool.encryptData(tool.getAddress());
+    details += `\n\nEncrypted address:\n${ciphertext}`;
+  }
 
-Encrypted address:
-${ciphertext}
+  if (opts['show-keys']) {
+    details += `\n\nPrivate key:\n${tool.getPrivkey()}` +
+               `\n\nPublic key:\n${tool.getPubkey()}`;
+  }
 
-Private key:
-${tool.getPrivkey()}
-
-Public key:
-${tool.getPubkey()}
-`;
-
-  return render(address, ciphertext, details);
+  return render(tool.getAddress(), details, opts['backup'], ciphertext);
 }
 
 /**
  * Creates a Bech32 encoded, HNS multisig address.
  * @param {Object} tool - an instance of FaucetTool
- * @param {Array} args - arguments captured from standard input
+ * @param {Array} args - arguments captured from stdin
+ * @param {Object} opts - command options captures from stdin
  */
-async function createMultisig(tool, [nrequired, ...keys]) {
+async function createMultisig(tool, [nrequired, ...keys], opts) {
   if ((nrequired >>> 0) !== nrequired)
     usage('nrequired should be an Int');
 
@@ -106,49 +103,64 @@ async function createMultisig(tool, [nrequired, ...keys]) {
   });
 
   const multisig = await FaucetTool.createMultisig(tool.getNetwork(), nrequired, keys);
-  const ciphertext = await FaucetTool.encryptData(multisig.address);
-  const details =
-`Multisig address:
-${multisig.address}
 
-Encrypted multisig address:
-${ciphertext}
+  let ciphertext,
+      details = `Multisig address:\n${multisig.address}\n\n`;
 
-Redeem script:
-${multisig.redeemScript}
-`;
+  if (opts['project-sponsor']) {
+    ciphertext = await FaucetTool.encryptData(multisig.address);
+    details += `Encrypted multisig address:\n${ciphertext}\n\n`;
+  }
 
-  return render(multisig.address, ciphertext, details);
+  details += `Redeem script:\n${multisig.redeemScript}\n\n`;
+
+  return render(multisig.address, details, opts['backup'], ciphertext);
 }
 
 /**
- * Renders wallet info and encrypted address to stdout
- * and writes them as files to disk.
+ * Renders the tool's output.
  * @param {String} address - the generated address
- * @param {String} ciphertext - the encrypted address
  * @param {String} details - the wallet details
+ * @param {Boolean} backup - true if a backup should be created
+ * @param {String?} ciphertext - the encrypted address
  */
 
-async function render(address, ciphertext, details) {
+async function render(address, details, backup, ciphertext) {
   const prefix = FAUCET_TOOL_DIR + address;
   const detailsPath = prefix + '_details.txt';
   const codePath = prefix + '_encrypted_address_QR_code.png'
 
-  if (!fs.existsSync(FAUCET_TOOL_DIR))
-    fs.mkdirSync(FAUCET_TOOL_DIR);
+  // Render files if backup flag is passed
+  // or a QR code needs to be generated.
+  if (backup || ciphertext) {
+    let count = 1;
 
-  await QRCode.toFile(codePath, ciphertext);
-  fs.writeFileSync(detailsPath, details);
+    if (!fs.existsSync(FAUCET_TOOL_DIR))
+      fs.mkdirSync(FAUCET_TOOL_DIR);
 
-  details +=
-`
-The following files were created:
-  ${detailsPath} [1]
-  ${codePath} [2]
+    details += `\n\nThe following files were created:`;
 
-  [1]: Wallet information
-  [2]: QR code of encrypted address
-`;
+    if (backup)
+      details += `\n - ${detailsPath} [${count++}]`;
+
+    if (ciphertext)
+      details += `\n - ${codePath} [${count}]`;
+
+    // Needed to separate files from legend.
+    detail += '\n';
+
+    if (backup)
+      details += `\n[1]: Wallet details`;
+
+    if (ciphertext)
+      details += `\n[${count}]: QR code of encrypted address`;
+
+    if (ciphertext)
+      await QRCode.toFile(codePath, ciphertext);
+
+    if (backup)
+      fs.writeFileSync(detailsPath, details);
+  }
 
   console.log(details);
 }
@@ -173,18 +185,14 @@ function parseCmd(argv) {
 
   for (let opt in opts) {
     if (opts.hasOwnProperty(opt)) {
+      //  this key holds the cmd & args
       if (opt === '_')
         continue;
 
       if (!VALID_OPTS.includes(opt))
-        usage(`invalid option: -${opt}`);
-
-      nopts++;
+        usage(`invalid option: ${opt}`);
     }
   }
-
-  if (nopts > 3)
-    usage('too many options');
 
   return { cmd, args, opts };
 }
@@ -198,10 +206,11 @@ function usage(err) {
   const msg =
 `faucet-tool: ${err}
 usage:
-  $ faucet-tool createaddress [-n string] [-l string] [-b number]
+  $ faucet-tool createaddress [--show-keys] [-n string] [-l string] [-b number]
   $ faucet-tool createmultisig <required> <pubkey1> <pubkey2> ...'
 
 Options:
+  --show-keys (show address key pair)
   -n <network> (default "main")
   -l <seed language> (default "english")
   -b <bits of entropy> (default 256)

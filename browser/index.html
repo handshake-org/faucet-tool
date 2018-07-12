@@ -26,7 +26,6 @@
 <div>
 
 <h1 class="generate">HNS Address Generator</h1>
-<h1 class="multisig hide">HNS Multisig Address Generator</h1>
 <p class="generate">This tool generates the first receiving address, in the
 first account of a BIP44 HD wallet. It also generates the 24 word BIP39 mnemonic
 phrase which was used to seed the wallet.&nbsp;<strong>It is important that you keep
@@ -34,67 +33,71 @@ this seed phrase private. It is the only way to access your wallet. Do not share
 your seed phrase with anyone that should not have access to the contents of
 the wallet.</strong></p>
 
-<p class="generate">This tool also generates the specific key pair used to derive the receiving address.
-The key pair could be used as a participant in a multisig address.</p>
-
-<p class="multisig hide">This tool generates an m-of-n multisig address. It also generates the redeem
-script necessary to spend coins sent to the address.&nbsp;<strong>It is important that you record this
-redeem script. You must include the redeem script in a transaction spending these coins.</strong></p>
-
-<a href="./index.html" id="generate" class="show button">Generate address</a>
-<a href="./index.html" id="multisig" class="show button">Generate multisig</a>
+<a href="./index.html" id="participants" class="show button">Faucet participants</a>
+<a href="./index.html" id="sponsors" class="show button">Project sponsors</a>
 
 <div id="error-box" class="error hide"></div>
 
 </div>
 </section>
 
-<section class="alt generate hide">
+<section class="alt sponsors participants hide">
 
 <div>
 <h2>Your Seed Phrase</h2>
-<p class="onboarding-text-blob-max-width">This is your seed phrase. To access
-your wallet in the future, please save your seed phrase and back it up 
-externally. <strong>Write it down. Back it up. There is no way to recover
-your wallet if you do not do this.</strong></p>
+<p class="onboarding-text-blob-max-width">
+<strong>WRITE IT DOWN. BACK IT UP.</strong>
+<br/>There is no way to recover your wallet if you lose this phrase.</p>
 <textarea id="phrase" readonly rows="3"></textarea>
 </div>
 
-<div>
+<div class="participants hide">
 <h2>Your Address</h2>
-<p>This is your HNS address. We will use this address to send you your HNS coins
-after the mainnet launch. If you are a faucet participant, please paste this into
-the submit address field in the handshake.org faucet sign-up flow.</p>
-<textarea id="plaintext" rows="1" readonly></textarea>
+<p>Paste this address into the handshake.org sign-up flow.</p>
+<textarea id="plaintext-participants" rows="1" readonly></textarea>
 </div>
 
-<div>
+<div class="sponsors hide">
+<h2>Your Address</h2>
+<p>We will send your HNS coins to this address.</p>
+<textarea id="plaintext-sponsors" rows="1" readonly></textarea>
+</div>
+
+<div class="sponsors hide">
 <h2>Your Encryped Address</h2>
-<p>This is your HNS address encrypted with a PGP pubkey. If you are an official project
-sponsor please email this address to the Handshake Foundation.</p>
+<p>This is your HNS address encrypted with a PGP pubkey. Send this to the Handshake
+team.</p>
 <textarea id="ciphertext" rows="22" readonly></textarea>
-</div>
-
-<div>
-<h2>Your Encrypted Address: QR code</h2>
-<p>For your convenience, a QR code has been generated below which encodes the pgp encrypted
-address. Scan and email to the Handshake Foundation.</p>
+<p>For your convenience, a QR code has been generated below which encodes the pgp
+encrypted address.</p>
 <canvas id='canvas'></canvas>
 </div>
 
 <div>
-<h2>Your Private Key</h2>
-<p>This is the private key used to derive your HNS address.</p>
+<h2>Your Address Keys</h2>
+<p class="generate">This tool also generates the specific key pair associated with
+your address. If you backup your seed phrase, it is not necessary to keep this
+information. Advanced users may choose to only track this key pair, or include it
+as an authorized signer in a multisig address. <strong>Be sure to keep the private
+key secret. Anyone who knows your private key can spend your coins.</strong></p>
+
+<div class="toggle hide">
+<h3>Private Key</h3>
 <textarea id="privkey" rows="1" readonly></textarea>
 </div>
 
-<div>
-<h2>Your Public Key</h2>
-<p>This is the public key which was hashed to produce your HNS address.</p>
+<div class="toggle hide">
+<h3>Public Key</h3>
 <textarea id="pubkey" rows="1" readonly></textarea>
-<a href="./index.html" class="button">Restart</a>
 </div>
 
+<a class="key-toggle toggle" href="./index.html">Show key pair</a>
+<a class="key-toggle toggle hide" href="./index.html">Hide key pair</a>
+</div>
+
+<div>
+<a href="./index.html" class="button">Go back</a>
+</div>
 </section>
 
 <section class="alt hide multisig">
@@ -136,7 +139,7 @@ sponsor please email this address to the Handshake Foundation.</p>
 <div>
 <h2>Your Encrypted address: QR code</h2>
 <p>For your convenience, a QR code has been generated below which encodes the pgp encrypted
-address. Scan and email to the Handshake Foundation.</p>
+address.<br/> Scan and email to the Handshake Foundation.</p>
 <canvas id='multi-canvas'></canvas>
 </div>
 
