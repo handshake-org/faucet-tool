@@ -6,8 +6,8 @@ private. It is the only way to access your HNS coins. Do not share your
 mnemonic seed phrase with anyone that should not have access to the contents
 of the wallet.**
 
->Note: **running this software on compromised hardware will leave you in
-danger of losing funds.**
+>NOTE: we recommend running this software on an air gapped computer. Running
+this software on compromised hardware will leave you in danger of losing funds.
 
 ## Requirements
 * Linux, OSX or Windows
@@ -20,6 +20,7 @@ danger of losing funds.**
 * tar
 
 ## Browser tool
+#### Run:
 ```
 $ git clone git@github.com:handshake-org/faucet-tool.git
 $ cd faucet-tool
@@ -28,13 +29,35 @@ $ npm run webpack
 $ open browser/index.html
 ```
 
+Click the button which describes your project affiliation,
+i.e. "faucet participant" vs. "project sponsor"
+
 ## CLI tool
+#### Run:
 ```
 $ git clone git@github.com:handshake-org/faucet-tool.git
 $ cd faucet-tool
 $ npm install
 $ ./bin/faucet-tool createaddress
 ```
+
+#### Usage:
+```
+usage:
+  $ faucet-tool createaddress
+  $ faucet-tool createmultisig <num required> <pubkey1> <pubkey2> ... <pubkeyN>
+
+Options:
+  -n <network> (default "main")
+  -l <seed language> (default "english")
+  -b <bits of entropy> (default 256)
+
+Flags:
+  --backup (creates a backup file of wallet details)
+  --show-keys (show address key pair)
+  --project-sponsor (generates encryped address for project sponsors)
+```
+
 
 ## Notes
 

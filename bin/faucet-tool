@@ -206,14 +206,18 @@ function usage(err) {
   const msg =
 `faucet-tool: ${err}
 usage:
-  $ faucet-tool createaddress [--show-keys] [-n string] [-l string] [-b number]
-  $ faucet-tool createmultisig <required> <pubkey1> <pubkey2> ...'
+  $ faucet-tool createaddress
+  $ faucet-tool createmultisig <num required> <pubkey1> <pubkey2> ... <pubkeyN>
 
 Options:
-  --show-keys (show address key pair)
   -n <network> (default "main")
   -l <seed language> (default "english")
   -b <bits of entropy> (default 256)
+
+Flags:
+  --backup (creates a backup file of wallet details)
+  --show-keys (show address key pair)
+  --project-sponsor (generates encryped address for project sponsors)
 `;
 
   if(typeof err === 'string') {
