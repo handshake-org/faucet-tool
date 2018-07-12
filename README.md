@@ -43,9 +43,8 @@ $ ./bin/faucet-tool createaddress
 
 #### Usage:
 ```
-usage:
-  $ faucet-tool createaddress
-  $ faucet-tool createmultisig <num required> <pubkey1> <pubkey2> ... <pubkeyN>
+$ faucet-tool createaddress
+$ faucet-tool createmultisig <num required> <pubkey1> <pubkey2> ... <pubkeyN>
 
 Options:
   -n <network> (default "main")
