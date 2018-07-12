@@ -244,3 +244,33 @@ select {
   height: 35px;
   width: 35px;
 }
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  animation: lds-dual-ring 1.2s linear infinite;
+  border: 5px solid #693AFA;
+  border-color: #693AFA transparent #693AFA transparent;
+  border-radius: 50%;
+  content: " ";
+  display: block;
+  height: 46px;
+  margin: 30px 1px 1px 30px;
+  width: 46px;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  color: #693AFA;
+  text-align: center;
+}
