@@ -147,7 +147,7 @@ async function render(address, details, backup, ciphertext) {
       details += `\n - ${codePath} [${count}]`;
 
     // Needed to separate files from legend.
-    detail += '\n';
+    details += '\n';
 
     if (backup)
       details += `\n[1]: Wallet details`;
