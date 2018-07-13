@@ -45,6 +45,7 @@ $ ./bin/faucet-tool createaddress
 ```
 $ faucet-tool createaddress
 $ faucet-tool createmultisig <num required> <pubkey1> <pubkey2> ... <pubkeyN>
+$ faucet-tool version
 
 Options:
   -n <network> (default "main")
