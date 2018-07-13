@@ -138,6 +138,9 @@ async function render(address, details, backup, ciphertext) {
     if (!fs.existsSync(FAUCET_TOOL_DIR))
       fs.mkdirSync(FAUCET_TOOL_DIR);
 
+    if (backup)
+      fs.writeFileSync(detailsPath, details);
+
     details += `\n\nThe following files were created:`;
 
     if (backup)
@@ -157,9 +160,6 @@ async function render(address, details, backup, ciphertext) {
 
     if (ciphertext)
       await QRCode.toFile(codePath, ciphertext);
-
-    if (backup)
-      fs.writeFileSync(detailsPath, details);
   }
 
   console.log(details);
