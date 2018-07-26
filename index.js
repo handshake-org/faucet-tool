@@ -54,6 +54,7 @@ class FaucetToolError extends Error {
 }
 
 // Private members
+const account = new WeakMap();
 const address = new WeakMap();
 const network = new WeakMap();
 const phrase = new WeakMap();
@@ -112,17 +113,17 @@ class FaucetTool {
       bits: options.bits || 256
     });
     const _master = HDPrivateKey.fromMnemonic(_mnemonic);
-    const _child = _master
-      .deriveAccount(BIP44_PURPOSE, BIP44_COIN_TYPE[_network], BIP44_ACCOUNT)
-      .derive(BIP44_CHANGE)
-      .derive(BIP44_ADDRESS_INDEX);
+    const _account = _master
+      .deriveAccount(BIP44_PURPOSE, BIP44_COIN_TYPE[_network], BIP44_ACCOUNT);
 
+    const _child = _account.derive(BIP44_CHANGE).derive(BIP44_ADDRESS_INDEX);
     const _keyring = KeyRing.fromPrivate(_child.privateKey);
     const _address = _keyring.getKeyAddress('string', _network);
 
     if (!FaucetTool.isValidAddress(_network, _address))
       throw new FaucetToolError(`invalid address generated: ${_address}`);
 
+    account.set(this, _account);
     address.set(this, _address);
     network.set(this, _network);
     phrase.set(this, _mnemonic.getPhrase());
@@ -155,6 +156,14 @@ class FaucetTool {
 
   getPhrase() {
     return phrase.get(this);
+  }
+
+  /**
+   * Returns the xpub associated with the default account
+   * @returns {String} the xpub
+   */
+  getAccountXpub() {
+    return account.get(this).xpubkey(network.get(this));
   }
 
   /**

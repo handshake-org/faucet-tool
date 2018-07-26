@@ -65,13 +65,15 @@ async function createAddress(tool, args, opts) {
     usage(`invalid arguments: ${args}`);
 
   let ciphertext,
-      details = `Seed phrase:\n${tool.getPhrase()}` +
+      details = `Seed phrase (WRITE DOWN AND KEEP SECRET):\n${tool.getPhrase()}` +
                 `\n\nAddress:\n${tool.getAddress()}`;
 
   if (opts['project-sponsor']) {
     ciphertext = await FaucetTool.encryptData(tool.getAddress());
     details += `\n\nEncrypted address:\n${ciphertext}`;
   }
+
+  details += `\n\nXpub (for use with watch-only wallets):\n${tool.getAccountXpub()}`;
 
   if (opts['show-keys']) {
     details += `\n\nPrivate key:\n${tool.getPrivkey()}` +
