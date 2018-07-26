@@ -1,6 +1,6 @@
 #!/bin/sh
 # This command packages compressed tarballs of the
-# cli and browser tools.
+# cli tool.
 #
 # This command takes a git ref as its first argument.
 # The second argument is an output dir for the build
@@ -42,9 +42,6 @@ npm install
 
 echo "running npm run webpack..."
 npm run webpack
-
-echo "building browser faucet tool..."
-tar -czvf "$outputDir"/faucet-tool-browser.tar.gz ./browser
 
 for os in macos linux win
 do

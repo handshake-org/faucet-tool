@@ -19,19 +19,6 @@ this software on compromised hardware will leave you in danger of losing funds.
 * [ pkg ](https://github.com/zeit/pkg)
 * tar
 
-## Browser tool
-#### Run:
-```
-$ git clone git@github.com:handshake-org/faucet-tool.git
-$ cd faucet-tool
-$ npm install
-$ npm run webpack
-$ open browser/index.html
-```
-
-Click the button which describes your project affiliation,
-i.e. "faucet participant" vs. "project sponsor"
-
 ## CLI tool
 #### Run:
 ```
