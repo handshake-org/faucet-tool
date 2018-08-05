@@ -22,7 +22,7 @@ this software on compromised hardware will leave you in danger of losing funds.
 ## CLI tool
 #### Run:
 ```
-$ git clone git@github.com:handshake-org/faucet-tool.git
+$ git clone https://github.com/handshake-org/faucet-tool.git
 $ cd faucet-tool
 $ npm install
 $ ./bin/faucet-tool createaddress
