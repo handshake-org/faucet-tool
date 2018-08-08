@@ -30,10 +30,10 @@ outputDir=`pwd`
 tempDir=`mktemp -d`
 trap "rm -rf $tempDir" EXIT
 
-echo "cloning git@github.com:handshake-org/faucet-tool.git"
+echo "cloning https://github.com/handshake-org/faucet-tool.git"
 buildPath=$tempDir/faucet-tool
 mkdir -p $buildPath
-git clone git@github.com:handshake-org/faucet-tool.git $buildPath
+git clone https://github.com/handshake-org/faucet-tool.git $buildPath
 cd $buildPath
 git checkout $releaseRef
 
