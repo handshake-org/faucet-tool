@@ -255,11 +255,11 @@ describe('FaucetTool', function() {
     it('should produce correct digest', async function() {
       const want = 'hello world';
       const ciphertext = await FaucetTool.encryptData(want, TEST_PGP_PUBKEY);
-      const privkey = openpgp.key.readArmored(TEST_PGP_PRIVKEY).keys[0];
+      const privkey = (await openpgp.key.readArmored(TEST_PGP_PRIVKEY)).keys[0];
       await privkey.decrypt(TEST_PGP_PASSPHRASE);
 
       const options = {
-        message: openpgp.message.readArmored(ciphertext),
+        message: (await openpgp.message.readArmored(ciphertext)),
         privateKeys: [privkey]
       }
       const got = (await openpgp.decrypt(options)).data;

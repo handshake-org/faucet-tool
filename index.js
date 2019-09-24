@@ -192,8 +192,9 @@ class FaucetTool {
    */
 
   static async encryptData(data, pubkey = PGP_PUBKEY) {
-    const publicKeys = openpgp.key.readArmored(pubkey).keys;
-    return (await openpgp.encrypt({ data, publicKeys })).data;
+    const message = openpgp.message.fromText(data);
+    const publicKeys = (await openpgp.key.readArmored(pubkey)).keys;
+    return (await openpgp.encrypt({ message, publicKeys })).data;
   }
 
   /**
