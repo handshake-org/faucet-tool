@@ -1,5 +1,4 @@
 dist/
-browser/js/faucet*
 node_modules/
 npm-debug.log
 .DS_Store

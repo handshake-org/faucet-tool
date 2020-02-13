@@ -40,9 +40,6 @@ git checkout $releaseRef
 echo "running npm install..."
 npm install
 
-echo "running npm run webpack..."
-npm run webpack
-
 for os in macos linux win
 do
   echo "building "$os"-x64 faucet tool..."
