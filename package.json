@@ -9,7 +9,7 @@
   "author": "Boyma Fahnbulleh <boyma@handshake.org>",
   "main": "./index.js",
   "scripts": {
-    "test": "mocha --reporter spec test/*.js"
+    "test": "bmocha --reporter spec test/*.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,6 @@
     "qrcode": "^1.4.4"
   },
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "bmocha": "^2.1.3"
   }
 }
