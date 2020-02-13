@@ -15,10 +15,6 @@ this software on compromised hardware will leave you in danger of losing funds.
 * node.js >=v8.0.0
 * npm >=v4.0.0
 
-### Additional requirements to build binaries
-* [ pkg ](https://github.com/zeit/pkg)
-* tar
-
 ## CLI tool
 #### Run:
 ```

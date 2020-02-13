@@ -25,12 +25,12 @@
     "blru": "^0.1.2",
     "bstring": "^0.1.1",
     "bufio": "^1.0.1",
+    "minimist": "^1.2.0",
     "n64": "^0.2.1",
     "openpgp": "^4.3.0",
     "qrcode": "^1.4.4"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "pkg": "^4.4.3"
+    "mocha": "^5.2.0"
   }
 }
