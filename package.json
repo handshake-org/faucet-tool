@@ -21,12 +21,12 @@
   "homepage": "https://github.com/handshake-org/faucet-tool",
   "dependencies": {
     "assert": "^1.4.1",
-    "bcrypto": "^4.1.0",
-    "blru": "^0.1.2",
-    "bstring": "^0.1.1",
-    "bufio": "^1.0.1",
+    "bcrypto": "^5.4.0",
+    "blru": "^0.1.6",
+    "bstring": "^0.3.9",
+    "bufio": "^1.0.7",
+    "n64": "^0.2.10",
     "minimist": "^1.2.6",
-    "n64": "^0.2.1",
     "openpgp": "^4.3.0",
     "qrcode": "^1.4.4"
   },
