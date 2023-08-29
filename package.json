@@ -27,7 +27,7 @@
     "bufio": "^1.0.7",
     "n64": "^0.2.10",
     "minimist": "^1.2.6",
-    "openpgp": "^4.3.0",
+    "openpgp": "^4.10.11",
     "qrcode": "^1.4.4"
   },
   "devDependencies": {
